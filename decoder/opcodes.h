@@ -6,10 +6,11 @@
 #define RISCV_OPCODES_H
 
 #include <stdint.h>
+#include <stdio.h>
 
 #define BIT(n) (1<<n)
 
-namespace opcode {
+namespace decode {
 
 typedef struct _rtype{
     uint8_t opcode : 7;
@@ -84,7 +85,7 @@ typedef struct _jtype{
     uint8_t  imm12_19  : 8;
     uint8_t  imm11     : 1;
     uint16_t imm1_10   : 10;
-    uint8_t  imm20    : 1;
+    uint8_t  imm20     : 1;
     uint32_t getImm(){
         uint32_t sign20 = 0x00000000;
         if(imm20 & BIT(0))sign20 = 0xFFFFFFFF;
@@ -100,55 +101,56 @@ typedef struct _dummytype {
     uint32_t unused   : 25;
 } __attribute__((packed)) dummy;
 
-extern utype LUI     ;
-extern utype AUIPC   ;
-extern jtype JAL     ;
-extern itype JALR    ;
-extern btype BEQ     ;
-extern btype BNE     ;
-extern btype BLT     ;
-extern btype BGE     ;
-extern btype BLTU    ;
-extern btype BGEU    ;
-extern itype LB      ;
-extern itype LH      ;
-extern itype LW      ;
-extern itype LBU     ;
-extern itype LHU     ;
-extern stype SB      ;
-extern stype SH      ;
-extern stype SW      ;
-extern itype ADDI    ;
-extern itype SLTI    ;
-extern itype SLTIU   ;
-extern itype XORI    ;
-extern itype ORI     ;
-extern itype ANDI    ;
-extern rtype SLLI    ;
-extern rtype SRLI    ;
-extern rtype SRAI    ;
-extern rtype ADD     ;
-extern rtype SUB     ;
-extern rtype SLL     ;
-extern rtype SLT     ;
-extern rtype SLTU    ;
-extern rtype XOR     ;
-extern rtype SRL     ;
-extern rtype SRA     ;
-extern rtype OR      ;
-extern rtype AND     ;
-extern itype FENCE   ;
-extern itype FENCE_I ;
-extern itype ECALL   ;
-extern itype EBREAK  ;
-extern itype CSRRW   ;
-extern itype CSRRS   ;
-extern itype CSRRC   ;
-extern itype CSRRWI  ;
-extern itype CSRRSI  ;
-extern itype CSRRCI  ;
+extern utype _LUI     ;
+extern utype _AUIPC   ;
+extern jtype _JAL     ;
+extern itype _JALR    ;
+extern btype _BEQ     ;
+extern btype _BNE     ;
+extern btype _BLT     ;
+extern btype _BGE     ;
+extern btype _BLTU    ;
+extern btype _BGEU    ;
+extern itype _LB      ;
+extern itype _LH      ;
+extern itype _LW      ;
+extern itype _LBU     ;
+extern itype _LHU     ;
+extern stype _SB      ;
+extern stype _SH      ;
+extern stype _SW      ;
+extern itype _ADDI    ;
+extern itype _SLTI    ;
+extern itype _SLTIU   ;
+extern itype _XORI    ;
+extern itype _ORI     ;
+extern itype _ANDI    ;
+extern rtype _SLLI    ;
+extern rtype _SRLI    ;
+extern rtype _SRAI    ;
+extern rtype _ADD     ;
+extern rtype _SUB     ;
+extern rtype _SLL     ;
+extern rtype _SLT     ;
+extern rtype _SLTU    ;
+extern rtype _XOR     ;
+extern rtype _SRL     ;
+extern rtype _SRA     ;
+extern rtype _OR      ;
+extern rtype _AND     ;
+extern itype _FENCE   ;
+extern itype _FENCE_I ;
+extern itype _ECALL   ;
+extern itype _EBREAK  ;
+extern itype _CSRRW   ;
+extern itype _CSRRS   ;
+extern itype _CSRRC   ;
+extern itype _CSRRWI  ;
+extern itype _CSRRSI  ;
+extern itype _CSRRCI  ;
 
-union instruction{
+
+union instruction_type{
     rtype R;
     itype I;
     stype S;

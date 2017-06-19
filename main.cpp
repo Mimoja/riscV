@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stdint.h>
 
-#include "opcodes.h"
-#include "decoder.h"
+#include "decoder/opcodes.h"
+#include "decoder/decoder.h"
 
 uint32_t register32[32];
 uint32_t pc32;
@@ -20,12 +20,11 @@ uint32_t bytecode[] = {
 };
 
 int main() {
-    uint32_t bytecode_length = sizeof(bytecode) / sizeof(opcode::instruction);
+    uint32_t bytecode_length = sizeof(bytecode) / sizeof(decode::instruction_type);
     printf("%d opcodes\n", bytecode_length);
-    printf("Size of %d\n", sizeof(opcode::dummy));
     for(int i = 0; i < bytecode_length; i++) {
-        opcode::instruction ins = { .val = bytecode[i]};
-        decode_instruction(ins);
+        instructions::Instruction* instruction = decode::decode_instruction(bytecode[i]);
+        printf("%s\n",instruction->to_string());
     }
     return 0;
 }
