@@ -8,6 +8,8 @@
 
 #include <stdio.h>
 #include "../decoder/opcodes.h"
+#include "../hardware/registers.h"
+#include "../hardware/memory.h"
 
 namespace instructions {
     class Instruction {
@@ -20,8 +22,9 @@ namespace instructions {
             return disas_buffer;
         }
 
-        virtual void execute() {
-            printf("Ignoring unknown instruction 0x%08X\n", instr.val);
+        virtual void execute(registers* reg, memory* mem) {
+            printf("Ignoring unknown instruction 0x%08X at 0x%08X\n", instr.val, reg->getPC32());
+
         };
     protected:
         char disas_buffer[128];

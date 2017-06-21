@@ -7,6 +7,7 @@
 
 #include <netinet/in.h>
 #include "Instruction.h"
+#include "../hardware/registers.h"
 
 namespace instructions {
     class ADDI : public Instruction {
@@ -14,9 +15,8 @@ namespace instructions {
         ADDI(const decode::instruction_type &decoded) : Instruction(decoded) {
             sprintf(disas_buffer, "ADDI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm());
         }
-        void execute() {
-            Instruction::execute();
-            // rd  = rs1 + imm
+        void execute(registers* reg, memory* mem) {
+            reg->setReg32(instr.I.rd , reg->getReg32(instr.I.rs1) + instr.I.getImm());
         }
     };
 

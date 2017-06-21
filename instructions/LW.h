@@ -13,9 +13,8 @@ namespace instructions {
         LW(const decode::instruction_type &decoded) : Instruction(decoded) {
             sprintf(disas_buffer, "LW %d, %d(%d)", instr.I.rd, instr.I.getImm(), instr.I.rs1);
         }
-        void execute() {
-            Instruction::execute();
-            // rd  = * (rs1 + getImm())
+        void execute(registers* reg, memory* mem) {
+            reg->setReg32(instr.I.rd, mem->getWord(instr.I.rs1 + instr.I.getImm()));
         }
     };
 

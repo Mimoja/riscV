@@ -14,10 +14,9 @@ namespace instructions {
         JAL(const decode::instruction_type &decoded) : Instruction(decoded) {
             sprintf(disas_buffer, "JAL %d, %d", instr.J.rd, instr.J.getImm());
         }
-        void execute() {
-            Instruction::execute();
-            // rd  = pc + 4
-            // pc = pc + getImm()
+        void execute(registers* reg, memory* mem) {
+            reg->setReg32(instr.J.rd , reg->getPC32() + 4);
+            reg->setPC32(reg->getPC32() + instr.J.getImm());
         }
     };
 

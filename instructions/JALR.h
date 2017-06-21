@@ -13,10 +13,9 @@ namespace instructions {
         JALR(const decode::instruction_type &decoded) : Instruction(decoded) {
             sprintf(disas_buffer, "JALR %d, %08X(%d)", instr.I.rd, instr.I.getImm(), instr.I.rs1);
         }
-        void execute() {
-            Instruction::execute();
-            // rd  = pc + 4
-            // pc = (rs1 + getImm()) & ~BIT(0)
+        void execute(registers* reg, memory* mem) {
+            reg->setReg32(instr.I.rd, reg->getPC32() + 4);
+            reg->setPC32((instr.I.rs1 + instr.I.getImm()) & ~BIT(0));
         }
     };
 

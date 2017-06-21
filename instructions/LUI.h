@@ -13,9 +13,8 @@ namespace instructions {
         LUI(const decode::instruction_type &decoded) : Instruction(decoded) {
             sprintf(disas_buffer, "LUI %d, %d", instr.U.rd, instr.U.getImm());
         }
-        void execute() {
-            Instruction::execute();
-            // rd  = getImm()
+        void execute(registers* reg, memory* mem) {
+            reg->setReg32(instr.U.rd, instr.U.getImm());
         }
     };
 

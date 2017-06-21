@@ -13,9 +13,9 @@ namespace instructions {
         SW(const decode::instruction_type &decoded) : Instruction(decoded) {
             sprintf(disas_buffer, "SW %d, %d(%d)", instr.S.rs2, instr.S.getImm(), instr.S.rs1);
         }
-        void execute() {
-            Instruction::execute();
-            //  * (rs1 + getImm()) = rs2
+        void execute(registers* reg, memory* mem) {
+            uint32_t targetAddr = reg->getReg32(instr.S.rs1)+ instr.S.getImm();
+            mem->setWord(reg->getReg32(instr.S.rs2),targetAddr);
         }
     };
 
