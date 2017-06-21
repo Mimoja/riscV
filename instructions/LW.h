@@ -14,7 +14,7 @@ namespace instructions {
             sprintf(disas_buffer, "LW %d, %d(%d)", instr.I.rd, instr.I.getImm(), instr.I.rs1);
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd, mem->getWord(instr.I.rs1 + instr.I.getImm()));
+            reg->setReg32(instr.I.rd, mem->getWord(reg->getReg32(instr.I.rs1)  + instr.I.getImm()));
         }
     };
 

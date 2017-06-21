@@ -1,13 +1,42 @@
 #include <stdio.h>
 #include "decoder.h"
-#include "../instructions/Instruction.h"
 #include "../instructions/ADDI.h"
 #include "../instructions/SLTI.h"
+#include "../instructions/SLLI.h"
+#include "../instructions/SRLI.h"
+#include "../instructions/SRAI.h"
+#include "../instructions/SLTU.h"
+#include "../instructions/SLT.h"
+#include "../instructions/SLL.h"
+#include "../instructions/SRA.h"
+#include "../instructions/SLTIU.h"
 #include "../instructions/JAL.h"
 #include "../instructions/LW.h"
 #include "../instructions/LUI.h"
 #include "../instructions/JALR.h"
 #include "../instructions/SW.h"
+#include "../instructions/SH.h"
+#include "../instructions/SB.h"
+#include "../instructions/LH.h"
+#include "../instructions/BEQ.h"
+#include "../instructions/BNE.h"
+#include "../instructions/BLT.h"
+#include "../instructions/BLTU.h"
+#include "../instructions/BGE.h"
+#include "../instructions/BGEU.h"
+#include "../instructions/LB.h"
+#include "../instructions/LBU.h"
+#include "../instructions/LHU.h"
+#include "../instructions/AUIPC.h"
+#include "../instructions/ORI.h"
+#include "../instructions/XORI.h"
+#include "../instructions/ANDI.h"
+#include "../instructions/ADD.h"
+#include "../instructions/AND.h"
+#include "../instructions/XOR.h"
+#include "../instructions/OR.h"
+#include "../instructions/SUB.h"
+#include "../instructions/SRL.h"
 
 namespace decode {
     instructions::Instruction* decode_instruction(uint32_t next) {
@@ -16,7 +45,7 @@ namespace decode {
         if (next_opcode == _LUI.opcode) {
             return new instructions::LUI(next_instruction);
         } else if (next_opcode == _AUIPC.opcode) {
-            printf("AUIPC\n");
+            return new instructions::AUIPC(next_instruction);
         } else if (next_opcode == _JAL.opcode) {
             return new instructions::JAL(next_instruction);
         } else if (next_opcode == _JALR.opcode) {
@@ -24,37 +53,37 @@ namespace decode {
         } else if (next_opcode == _BEQ.opcode) {
             uint8_t function = next_instruction.B.funct3;
             if (function == _BEQ.funct3) {
-                printf("BEQ\n");
+                return new instructions::BEQ(next_instruction);
             } else if (function == _BNE.funct3) {
-                printf("BNE\n");
+                return new instructions::BNE(next_instruction);
             } else if (function == _BLT.funct3) {
-                printf("BLT\n");
+                return new instructions::BLT(next_instruction);
             } else if (function == _BGE.funct3) {
-                printf("BGE\n");
+                return new instructions::BGE(next_instruction);
             } else if (function == _BLTU.funct3) {
-                printf("BLTU\n");
+                return new instructions::BLTU(next_instruction);
             } else if (function == _BGEU.funct3) {
-                printf("BGEU\n");
+                return new instructions::BGEU(next_instruction);
             }
         } else if (next_opcode == _LB.opcode) {
             uint8_t function = next_instruction.I.funct3;
             if (function == _LB.funct3) {
-                printf("LB\n");
+                return new instructions::LB(next_instruction);
             } else if (function == _LH.funct3) {
-                printf("LH\n");
+                return new instructions::LH(next_instruction);
             } else if (function == _LW.funct3) {
                 return new instructions::LW(next_instruction);
             } else if (function == _LBU.funct3) {
-                printf("LBU\n");
+                return new instructions::LBU(next_instruction);
             } else if (function == _LHU.funct3) {
-                printf("LHU\n");
+                return new instructions::LHU(next_instruction);
             }
         } else if (next_opcode == _SB.opcode) {
             uint8_t function = next_instruction.S.funct3;
             if (function == _SB.funct3) {
-                printf("SB\n");
+                return new instructions::SB(next_instruction);
             } else if (function == _SH.funct3) {
-                printf("SH\n");
+                return new instructions::SH(next_instruction);
             } else if (function == _SW.funct3) {
                 return new instructions::SW(next_instruction);
             }
@@ -65,21 +94,21 @@ namespace decode {
             } else if (function == _SLTI.funct3) {
                return new instructions::SLTI(next_instruction);
             } else if (function == _SLTIU.funct3) {
-                printf("SLTIU\n");
+                return new instructions::SLTIU(next_instruction);
             } else if (function == _XORI.funct3) {
-                printf("XORI\n");
+                return new instructions::XORI(next_instruction);
             } else if (function == _ORI.funct3) {
-                printf("ORI\n");
+                return new instructions::ORI(next_instruction);
             } else if (function == _ANDI.funct3) {
-                printf("ANDI\n");
+                return new instructions::ANDI(next_instruction);
             } else if (function == _SLLI.funct3) {
-                printf("SLLI\n");
+                return new instructions::SLLI(next_instruction);
             } else if (function == _SRLI.funct3) {
                 uint8_t func = next_instruction.R.funct7;
                 if (func == _SRLI.funct7) {
-                    printf("SRLI\n");
+                    return new instructions::SRLI(next_instruction);
                 } else if (func == _SRAI.funct7) {
-                    printf("SRAI\n");
+                    return new instructions::SRAI(next_instruction);
                 }
             }
         } else if (next_opcode == _ADD.opcode) {
@@ -87,29 +116,29 @@ namespace decode {
             if (function == _ADD.funct3) {
                 uint8_t func = next_instruction.R.funct7;
                 if (func == _ADD.funct7) {
-                    printf("ADD\n");
+                    return new instructions::ADD(next_instruction);
                 } else if (func == _SUB.funct7) {
-                    printf("SUB\n");
+                    return new instructions::SUB(next_instruction);
                 }
             } else if (function == _SLL.funct3) {
-                printf("SLL\n");
+                return new instructions::SLL(next_instruction);
             } else if (function == _SLT.funct3) {
-                printf("SLT\n");
+                return new instructions::SLT(next_instruction);
             } else if (function == _SLTU.funct3) {
-                printf("SLTU\n");
+                return new instructions::SLTU(next_instruction);
             } else if (function == _XOR.funct3) {
-                printf("XOR\n");
+                return new instructions::XOR(next_instruction);
             } else if (function == _SRL.funct3) {
                 uint8_t func = next_instruction.R.funct7;
                 if (func == _SRL.funct7) {
-                    printf("SRL\n");
+                    return new instructions::SRL(next_instruction);
                 } else if (func == _SRA.funct7) {
-                    printf("SRA\n");
+                    return new instructions::SRA(next_instruction);
                 }
             } else if (function == _OR.funct3) {
-                printf("SLT\n");
+                return new instructions::OR(next_instruction);
             } else if (function == _AND.funct3) {
-                printf("SLT\n");
+                return new instructions::AND(next_instruction);
             }
         } else if (next_opcode == _FENCE.opcode) {
             uint8_t function = next_instruction.I.funct3;

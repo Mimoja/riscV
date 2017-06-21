@@ -14,7 +14,7 @@ namespace instructions {
             sprintf(disas_buffer, "SLTI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd, instr.I.rs1 < instr.I.getImm());
+            reg->setReg32(instr.I.rd, ((int32_t)reg->getReg32(instr.I.rs1)) < ((int32_t)instr.I.getImm()));
         }
     };
 

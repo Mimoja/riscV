@@ -5,7 +5,7 @@
 #ifndef RISCV_ADDI_H
 #define RISCV_ADDI_H
 
-#include <netinet/in.h>
+
 #include "Instruction.h"
 #include "../hardware/registers.h"
 

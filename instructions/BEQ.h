@@ -21,5 +21,4 @@ namespace instructions {
 
 }
 
-
 #endif //RISCV_BEQ_H
