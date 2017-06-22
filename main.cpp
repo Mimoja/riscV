@@ -21,15 +21,16 @@ int main() {
     memory* mem = new memory(5000);
     registers* reg = new registers();
     mem->copyToMem((uint8_t*) bytecode, 0, sizeof(bytecode));
-    instructions::Instruction* instruction;
     for(int i = 0; i< 10; i++){
+        instructions::Instruction* instruction = nullptr;
         try {
             instruction = decode::decode_instruction(mem->getWord(reg->getPC32()));
             printf("0x%08X: %s\n",reg->getPC32(),instruction->to_string());
             instruction->execute(reg, mem);
         }catch( const std::out_of_range& e ) {
             printf("Expception: %s\n", e.what());
-            printf("Instruction: %s\n",instruction->to_string());
+            if (instruction)
+                printf("Instruction: %s\n",instruction->to_string());
             printf("Register dump:\n%s\n", reg->to_string().c_str());
             return 1;
         }
