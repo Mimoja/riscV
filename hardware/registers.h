@@ -33,11 +33,14 @@ public:
     std::string to_string() {
         std::string str;
 
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i+3 < 32; i += 4) {
             char output[1000];
-            sprintf(output, "registers[%d] = 0x%08lX\n", i, registers[i]);
+            sprintf(output, "x%02d  %08lX %08lX %08lX %08lX\n", i,
+                    registers[i], registers[i+1],
+                    registers[i+2], registers[i+3]);
             str.append(output);
         }
+
         char output[1000];
         sprintf(output, "pc = 0x%08lX\n", progcounter);
         str.append(output);
