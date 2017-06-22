@@ -15,7 +15,7 @@ namespace instructions {
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.I.rd, reg->getPC32() + 4);
-            reg->setPC32((instr.I.rs1 + instr.I.getImm()) & ~BIT(0));
+            reg->setPC32((reg->getReg32(instr.I.rs1) + instr.I.getImm()) & ~BIT(0));
         }
     };
 
