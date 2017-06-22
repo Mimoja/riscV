@@ -22,7 +22,11 @@ public:
 
     uint64_t getByte(uint64_t address)
     {
-        if(address >= size) throw std::out_of_range("Unallowed memory access");
+        if(address >= size) {
+            char buffer[1024];
+            sprintf(buffer,"Unallowed memory read at 0x%08lX", address);
+            throw std::out_of_range(buffer);
+        }
         return mem[address];
     }
 
