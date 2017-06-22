@@ -11,12 +11,12 @@ namespace instructions {
     class SRAI : public Instruction {
     public:
         SRAI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SRAI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm()& 0xFFFFF);
+            sprintf(disas_buffer, "SRAI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm() & 0x1F);
         }
         void execute(registers* reg, memory* mem) {
             uint32_t regVal = reg->getReg32(instr.I.rs1);
-            uint32_t value =  regVal >> (instr.I.getImm() & 0xFFFFF);
-            if(regVal & BIT(31))value |= 0xFFFFFFFF << (32-(instr.I.getImm() & 0xFFFFF));
+            uint32_t value =  regVal >> (instr.I.getImm() & 0x1F);
+            if(regVal & BIT(31))value |= 0xFFFFFFFF << (32-(instr.I.getImm() & 0x1F));
             reg->setReg32(instr.I.rd, value);
         }
     };

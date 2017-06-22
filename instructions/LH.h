@@ -15,7 +15,7 @@ namespace instructions {
         }
         void execute(registers* reg, memory* mem) {
             uint16_t value = mem->getHalfWord(reg->getReg32(instr.I.rs1) + instr.I.getImm());
-            if(value & BIT(16)) value |= 0xFFFF0000;
+            if(value & BIT(15)) value |= 0xFFFF0000;
             reg->setReg32(instr.I.rd, value);
         }
     };

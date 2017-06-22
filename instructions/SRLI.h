@@ -14,7 +14,7 @@ namespace instructions {
             sprintf(disas_buffer, "SRLI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd, reg->getReg32(instr.I.rs1) >> (instr.I.getImm() & 0xFFFFF) );
+            reg->setReg32(instr.I.rd, reg->getReg32(instr.I.rs1) >> (instr.I.getImm() & 0x1F) );
         }
     };
 

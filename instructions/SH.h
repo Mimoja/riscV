@@ -15,7 +15,7 @@ namespace instructions {
         }
         void execute(registers* reg, memory* mem) {
             uint32_t targetAddr = reg->getReg32(instr.S.rs1)+ instr.S.getImm();
-            mem->setWord(reg->getReg32(instr.S.rs2) & 0xFFFF, targetAddr);
+            mem->setHalfWord(reg->getReg32(instr.S.rs2) & 0xFFFF, targetAddr);
         }
     };
 
