@@ -33,6 +33,7 @@ int main() {
             printf("Register dump:\n%s\n", reg->to_string().c_str());
             return 1;
         }
+        delete instruction;
         reg->setPC32(reg->getPC32()+4);
     }
     return 0;
