@@ -6,5 +6,5 @@ int _start(){
     volatile int c = a + b;
     volatile int d = a * c;
     volatile int e = d / 4;
-    return e;
+    return d;
 }
