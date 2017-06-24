@@ -12,7 +12,7 @@ namespace instructions {
     class ADD : public Instruction {
     public:
         ADD(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "ADD %d, %d, %d", instr.R.rd, instr.R.rs1, instr.R.rs2);
+            sprintf(disas_buffer, "ADD %s, %s, %s", registers::getName(instr.R.rd), registers::getName(instr.R.rs1), registers::getName(instr.R.rs2));
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.R.rd , reg->getReg32(instr.R.rs1) + reg->getReg32(instr.R.rs2));

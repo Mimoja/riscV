@@ -12,7 +12,7 @@ namespace instructions {
     class JAL : public Instruction {
     public:
         JAL(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "JAL %d, %d", instr.J.rd, instr.J.getImm());
+            sprintf(disas_buffer, "JAL %s, %d", registers::getName(instr.J.rd), instr.J.getImm());
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.J.rd , reg->getPC32() + 4);

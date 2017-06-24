@@ -13,7 +13,7 @@ namespace instructions {
     class ANDI : public Instruction {
     public:
         ANDI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "ANDI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm());
+            sprintf(disas_buffer, "ANDI %s, %s, %d", registers::getName(instr.I.rd), registers::getName(instr.I.rs1), instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.I.rd , reg->getReg32(instr.I.rs1) & instr.I.getImm());
