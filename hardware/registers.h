@@ -19,12 +19,12 @@ public:
         return registers[num] & 0xFFFFFFFF;
     }
 
-    void setReg32(uint8_t num, uint32_t value){
+    void setReg32(uint8_t num, uint64_t value){
         if(num >= 32) throw std::out_of_range("Unknown register write");
         if(num != 0)  registers[num] = value & 0xFFFFFFFF;
     }
 
-    void setPC32(uint32_t pc){
+    void setPC32(uint64_t pc){
         progcounter = pc & 0xFFFFFFFF;
     }
 

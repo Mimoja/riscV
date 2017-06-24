@@ -69,7 +69,7 @@ public:
         setWord(lw & 0xFFFFFFFFFFFFFFFF, address);
         setWord((lw >> 32) & 0xFFFFFFFFFFFFFFFF, address + 4);
     }
-    void copyToMem(uint8_t * src, uint64_t dest_offset, uint32_t length){
+    void copyToMem(uint8_t * src, uint64_t dest_offset, uint64_t length){
         for (int i = 0; i < length; ++i) {
             setByte(src[i], dest_offset+i);
         }

@@ -1,25 +1,9 @@
 #include <iostream>
 
 #include <elfio/elfio.hpp>
-#include <fcntl.h>
-#include <sys/stat.h>
 
 #include "decoder/opcodes.h"
 #include "decoder/decoder.h"
-
-uint32_t bytecode[] = {
-        0x00001137,          // lui     sp, 1
-        0x00010537,          // lui     a0,0x10
-        0xff010113,          // addi    sp,sp,-16
-        0x39450513,          // addi    a0,a0,916 # 10394 <__libc_csu_fini+0x4>
-        0x00112623,          // sw      ra,12(sp)
-        0xfe1ff0ef,          // jal     ra,10260 <puts@plt>
-        0x00c12083,          // lw      ra,12(sp)
-        0x00000513,          // li      a0,0
-        0x01010113,          // addi    sp,sp,16
-        0x00008067,          // ret
-};
-
 
 int main(int argc, char** argv) {
 
@@ -53,7 +37,7 @@ int main(int argc, char** argv) {
         const ELFIO::segment* pseg = reader.segments[i];
 
         if(pseg->get_type() == PT_LOAD){
-            printf("Copying %d bytes from segment %d to 0x%08lX\n", (int)pseg->get_memory_size(),i , pseg->get_physical_address());
+            printf("Copying %d bytes from segment %d to 0x%08" PRIX64 "\n", (int)pseg->get_memory_size(),i , (uint64_t)pseg->get_physical_address());
             mem->copyToMem((uint8_t*)  reader.segments[i]->get_data(), pseg->get_physical_address(), pseg->get_memory_size());
         }
     }
@@ -63,14 +47,17 @@ int main(int argc, char** argv) {
     reg->setPC32(reader.get_entry()-4);
     reg->setReg32(2,mem->getSize());
 
-    printf("Entry addr is 0x%08lX, offset: %ld bytes\n", reader.get_entry(),reader.get_entry());
+    printf("Entry addr is 0x%08" PRIX64 ", offset: %ld bytes\n", (uint64_t) reader.get_entry(), (long)reader.get_entry());
     instructions::Instruction* instruction = nullptr;
 
-    do{
+    uint64_t simulated_return_address = mem->getSize()+4;
+    reg->setReg32(1, simulated_return_address);
+
+    while(reg->getPC32() < simulated_return_address){
         reg->setPC32(reg->getPC32()+4);
         try {
-            instruction = decode::decode_instruction(mem->getWord(reg->getPC32()));
-            printf("0x%08X: 0x%08lX: %s\n",reg->getPC32(),mem->getWord(reg->getPC32()),instruction->to_string());
+            instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()));
+            printf("0x%08X: 0x%08" PRIX64 ": %s\n", reg->getPC32(), mem->getWord(reg->getPC32()), instruction->to_string());
             instruction->execute(reg, mem);
         }catch( const std::out_of_range& e ) {
             printf("Expception: %s\n", e.what());
@@ -83,7 +70,7 @@ int main(int argc, char** argv) {
             printf("%s \n", c);
             return 7;
         }
-    }while(reg->getPC32() != 0);
+    }
     printf("Return is %u\n", reg->getReg32(10));
     return 0;
 }
