@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdint.h>
 
 #include "decoder/opcodes.h"
 #include "decoder/decoder.h"
