@@ -23,7 +23,8 @@ namespace instructions {
         }
 
         virtual void execute(registers* reg, memory* mem) {
-            printf("Ignoring unknown instruction 0x%08X at 0x%08X\n", instr.val, reg->getPC32());
+            printf("unknown instruction 0x%08X at 0x%08X\n", instr.val, reg->getPC32());
+            printf("no state besides pc was changed\n", instr.val, reg->getPC32());
             throw "Unknown Instruction Exception";
         };
     protected:
