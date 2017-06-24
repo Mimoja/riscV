@@ -17,7 +17,7 @@ namespace instructions {
         void execute(registers* reg, memory* mem) {
             uint32_t val1 = reg->getReg32(instr.R.rs2);
             uint32_t val2 = reg->getReg32(instr.R.rs2);
-            if (val2 == 0) reg->setReg32(instr.R.rd, (2 ^ 32) - 1);
+            if (val2 == 0) reg->setReg32(instr.R.rd, 0xffffffff);
             else reg->setReg32(instr.R.rd, val1 / val2);
         }
     };

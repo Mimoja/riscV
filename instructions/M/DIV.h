@@ -18,6 +18,8 @@ namespace instructions {
             int32_t val1 = (int32_t) reg->getReg32(instr.R.rs2);
             int32_t val2 = (int32_t) reg->getReg32(instr.R.rs2);
             if(val2 == 0) reg->setReg32(instr.R.rd, -1);
+            else if(val1 == -0x80000000 && val2 == -1)
+                reg->setReg32(instr.R.rd, 0x80000000);
             else reg->setReg32(instr.R.rd, val1 / val2);
         }
     };
