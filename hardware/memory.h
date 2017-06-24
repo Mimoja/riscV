@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include <stdexcept>
+#include <string.h>
 
 class memory
 {
@@ -14,6 +15,7 @@ public:
 
     memory(uint64_t bytes) {
         mem = new uint8_t[bytes];
+        memset(mem, 0, bytes);
         size = bytes;
     }
     ~memory() {
@@ -71,6 +73,10 @@ public:
         for (int i = 0; i < length; ++i) {
             setByte(src[i], dest_offset+i);
         }
+    }
+
+    uint64_t getSize(){
+        return size;
     }
 private:
     uint8_t* mem;

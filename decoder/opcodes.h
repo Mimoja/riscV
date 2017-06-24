@@ -44,7 +44,7 @@ typedef struct _stype{
     uint8_t imm5_11 : 7;
     uint32_t getImm(){
         uint32_t sign11 = 0x00000000;
-        if(imm5_11 & BIT(7))sign11 = 0xFFFFFFFF;
+        if(imm5_11 & BIT(6))sign11 = 0xFFFFFFFF;
         return   (sign11  << 11)
                  | (imm5_11 << 5)
                  | (imm0_4  << 0);
