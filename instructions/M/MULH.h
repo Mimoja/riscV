@@ -2,8 +2,8 @@
 // Created by Mimoja on 24.06.2017.
 //
 
-#ifndef RISCV_MULU_H
-#define RISCV_MULU_H
+#ifndef RISCV_MULH_H
+#define RISCV_MULH_H
 
 #include "../Instruction.h"
 #include "../../hardware/registers.h"
@@ -22,4 +22,4 @@ namespace instructions {
 
 }
 
-#endif //RISCV_MULU_H
+#endif //RISCV_MULH_H
