@@ -11,7 +11,7 @@ namespace instructions {
     class SRAI : public Instruction {
     public:
         SRAI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SRAI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm() & 0x1F);
+            sprintf(disas_buffer, "SRAI %s, %s, %d", registers::getName(instr.I.rd), registers::getName(instr.I.rs1), instr.I.getImm() & 0x1F);
         }
         void execute(registers* reg, memory* mem) {
             uint32_t regVal = reg->getReg32(instr.I.rs1);

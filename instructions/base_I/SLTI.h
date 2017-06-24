@@ -11,7 +11,7 @@ namespace instructions {
     class SLTI : public Instruction {
     public:
         SLTI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SLTI %d, %d, %d", instr.I.rd, instr.I.rs1, instr.I.getImm());
+            sprintf(disas_buffer, "SLTI %s, %s, %d", registers::getName(instr.I.rd), registers::getName(instr.I.rs1), instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.I.rd, ((int32_t)reg->getReg32(instr.I.rs1)) < ((int32_t)instr.I.getImm()));

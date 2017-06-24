@@ -12,7 +12,7 @@ namespace instructions {
     class XOR : public Instruction {
     public:
         XOR(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "XOR %d, %d, %d", instr.R.rd, instr.R.rs1, instr.R.rs2);
+            sprintf(disas_buffer, "XOR %s, %s, %s", registers::getName(instr.R.rd), registers::getName(instr.R.rs1), registers::getName(instr.R.rs2));
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.R.rd , reg->getReg32(instr.R.rs1) ^ reg->getReg32(instr.R.rs2));
