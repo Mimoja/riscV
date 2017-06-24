@@ -5,7 +5,6 @@
 #ifndef RISCV_ANDI_H
 #define RISCV_ANDI_H
 
-#include <netinet/in.h>
 #include "../Instruction.h"
 #include "../../hardware/registers.h"
 

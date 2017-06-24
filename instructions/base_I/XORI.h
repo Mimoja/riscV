@@ -5,7 +5,6 @@
 #ifndef RISCV_XORI_H
 #define RISCV_XORI_H
 
-#include <netinet/in.h>
 #include "../Instruction.h"
 #include "../../hardware/registers.h"
 

@@ -26,7 +26,7 @@ public:
     {
         if(address >= size) {
             char buffer[1024];
-            sprintf(buffer,"Unallowed memory read at 0x%08lX", address);
+            sprintf(buffer,"Unallowed memory read at 0x%08" PRIx64, address);
             throw std::out_of_range(buffer);
         }
         return mem[address];
@@ -49,7 +49,7 @@ public:
     void setByte(uint8_t byte, uint64_t address){
         if(address >= size){
             char buffer[1024];
-            sprintf(buffer,"Unallowed memory write at 0x%08lX to 0x%02X", address, byte);
+            sprintf(buffer,"Unallowed memory write at 0x%08" PRIx64 " to 0x%02X", address, byte);
             throw std::out_of_range(buffer);
         }
         mem[address] = byte;

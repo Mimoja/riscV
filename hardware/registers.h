@@ -5,6 +5,7 @@
 #ifndef RISCV_REGISTER_H
 #define RISCV_REGISTER_H
 
+#include <cinttypes>
 #include <stdint.h>
 #include <stdexcept>
 
@@ -36,14 +37,14 @@ public:
 
         for (int i = 0; i+3 < 32; i += 4) {
             char output[1000];
-            sprintf(output, "x%02d  %08lX %08lX %08lX %08lX\n", i,
+            sprintf(output, "x%02d  %08" PRIX64 " %08" PRIx64 " %08" PRIx64 " %08" PRIx64 "\n", i,
                     registers[i], registers[i+1],
                     registers[i+2], registers[i+3]);
             str.append(output);
         }
 
         char output[1000];
-        sprintf(output, "pc = 0x%08lX\n", progcounter);
+        sprintf(output, "pc = 0x%08" PRIx64 "\n", progcounter);
         str.append(output);
         return str;
     }

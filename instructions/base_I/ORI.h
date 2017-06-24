@@ -5,7 +5,6 @@
 #ifndef RISCV_ORI_H
 #define RISCV_ORI_H
 
-#include <netinet/in.h>
 #include "../Instruction.h"
 #include "../../hardware/registers.h"
 
