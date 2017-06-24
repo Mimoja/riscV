@@ -18,6 +18,8 @@ namespace instructions {
             sprintf(disas_buffer, "unkown: 0x%02X 0x%07X", instr.unknown.opcode, instr.unknown.unused);
         };
 
+        virtual ~Instruction() {}
+
         virtual char* to_string() {
             return disas_buffer;
         }

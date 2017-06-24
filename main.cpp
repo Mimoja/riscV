@@ -70,6 +70,7 @@ int main(int argc, char** argv) {
             printf("%s \n", c);
             return 7;
         }
+        delete instruction;
     }
     printf("Return is %u\n", reg->getReg32(10));
     return 0;
