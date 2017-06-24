@@ -48,8 +48,8 @@ public:
         return str;
     }
 
-    static char* getName(uint8_t reg){
-        char *name[]{
+    static const char* getName(uint8_t reg){
+        const char *name[]{
                 "zero",
                 "ra",
                 "sp",

@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
         return 2;
     }
     if ( reader.get_class() != ELFCLASS32){
-        printf("Wrong ELF class: %s\n", reader.get_class());
+        printf("Wrong ELF class\n");
         return 3;
     }
     if ( reader.get_encoding() != ELFDATA2LSB ){
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
         const ELFIO::segment* pseg = reader.segments[i];
 
         if(pseg->get_type() == PT_LOAD){
-            printf("Copying %d bytes from segment %d to 0x%08X\n", pseg->get_memory_size(),i , pseg->get_physical_address());
+            printf("Copying %d bytes from segment %d to 0x%08lX\n", (int)pseg->get_memory_size(),i , pseg->get_physical_address());
             mem->copyToMem((uint8_t*)  reader.segments[i]->get_data(), pseg->get_physical_address(), pseg->get_memory_size());
         }
     }
@@ -63,14 +63,14 @@ int main(int argc, char** argv) {
     reg->setPC32(reader.get_entry()-4);
     reg->setReg32(2,mem->getSize());
 
-    printf("Entry addr is 0x%08X, offset: %d bytes\n", reader.get_entry(),reader.get_entry());
+    printf("Entry addr is 0x%08lX, offset: %ld bytes\n", reader.get_entry(),reader.get_entry());
     instructions::Instruction* instruction = nullptr;
 
     do{
         reg->setPC32(reg->getPC32()+4);
         try {
             instruction = decode::decode_instruction(mem->getWord(reg->getPC32()));
-            printf("0x%08X: 0x%08X: %s\n",reg->getPC32(),mem->getWord(reg->getPC32()),instruction->to_string());
+            printf("0x%08X: 0x%08lX: %s\n",reg->getPC32(),mem->getWord(reg->getPC32()),instruction->to_string());
             instruction->execute(reg, mem);
         }catch( const std::out_of_range& e ) {
             printf("Expception: %s\n", e.what());
