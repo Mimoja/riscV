@@ -15,9 +15,13 @@ namespace instructions {
             sprintf(disas_buffer, "MUL %s, %s, %s", registers::getName(instr.R.rd), registers::getName(instr.R.rs1), registers::getName(instr.R.rs2));
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.R.rd, reg->getReg32(instr.R.rs1) * reg->getReg32(instr.R.rs2));
+            int32_t val1 = reg->getReg32(instr.R.rs1);
+            int32_t val2 = reg->getReg32(instr.R.rs2);
+            int64_t res = val1 * val2;
+            reg->setReg32(instr.R.rd,  res);
         }
     };
 
 }
 #endif //RISCV_MUL_H
+
