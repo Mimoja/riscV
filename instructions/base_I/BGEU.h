@@ -11,7 +11,7 @@ namespace instructions {
     class BGEU : public Instruction {
     public:
         BGEU(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "BGEU %s, %s %08X", registers::getName(instr.B.rs1), registers::getName(instr.B.rs2), instr.B.getImm());
+            sprintf(disas_buffer, "BGEU %s, %s, %08X", registers::getName(instr.B.rs1), registers::getName(instr.B.rs2), instr.B.getImm());
         }
         void execute(registers* reg, memory* mem) {
             if(reg->getReg32(instr.B.rs1) >= reg->getReg32(instr.B.rs2))
