@@ -149,6 +149,16 @@ extern itype _CSRRWI  ;
 extern itype _CSRRSI  ;
 extern itype _CSRRCI  ;
 
+// M Extension
+extern rtype _MUL     ;
+extern rtype _MULH    ;
+extern rtype _MULHSU  ;
+extern rtype _MULHU   ;
+extern rtype _DIV     ;
+extern rtype _DIVU    ;
+extern rtype _REM     ;
+extern rtype _REMU    ;
+
 
 union instruction_type{
     rtype R;

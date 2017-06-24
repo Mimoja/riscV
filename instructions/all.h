@@ -44,4 +44,14 @@
 #include "base_I/SW.h"
 #include "base_I/XOR.h"
 #include "base_I/XORI.h"
+
+#include "M/DIV.h"
+#include "M/DIVU.h"
+#include "M/MUL.h"
+#include "M/MULH.h"
+#include "M/MULHSU.h"
+#include "M/MULHU.h"
+#include "M/REM.h"
+#include "M/REMU.h"
+
 #endif //RISCV_ALL_H

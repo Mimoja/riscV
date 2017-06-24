@@ -53,4 +53,13 @@ namespace decode {
     itype _CSRRSI  = {.opcode = 0b1110011, .funct3 = 0b110};
     itype _CSRRCI  = {.opcode = 0b1110011, .funct3 = 0b111};
 
+    // M extension
+    rtype _MUL     = {.opcode = 0b0110011, .funct3 = 0b000};
+    rtype _MULH    = {.opcode = 0b0110011, .funct3 = 0b001};
+    rtype _MULHSU  = {.opcode = 0b0110011, .funct3 = 0b010};
+    rtype _MULHU   = {.opcode = 0b0110011, .funct3 = 0b011};
+    rtype _DIV     = {.opcode = 0b0110011, .funct3 = 0b100};
+    rtype _DIVU    = {.opcode = 0b0110011, .funct3 = 0b101};
+    rtype _REM     = {.opcode = 0b0110011, .funct3 = 0b110};
+    rtype _REMU    = {.opcode = 0b0110011, .funct3 = 0b111};
 }

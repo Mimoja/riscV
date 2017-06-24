@@ -134,6 +134,27 @@ namespace decode {
                 printf("CSRRCI\n");
             }
         }
+        //M Extension
+        else if (next_opcode == _MUL.opcode) {
+            uint8_t function = next_instruction.R.funct3;
+            if (function == _MUL.funct3) {
+                return new instructions::MUL(next_instruction);
+            }else if(function == _MULH.funct3){
+                return new instructions::MULH(next_instruction);
+            }else if(function == _MULHSU.funct3){
+                return new instructions::MULHSU(next_instruction);
+            }else if(function == _MULHU.funct3){
+                return new instructions::MULHU(next_instruction);
+            }else if(function == _DIV.funct3){
+                return new instructions::DIV(next_instruction);
+            }else if(function == _DIVU.funct3){
+                return new instructions::DIVU(next_instruction);
+            }else if(function == _REM.funct3){
+                return new instructions::REM(next_instruction);
+            }else if(function == _REMU.funct3){
+                return new instructions::REMU(next_instruction);
+            }
+        }
         return new instructions::Instruction(next_instruction);
     }
 }
