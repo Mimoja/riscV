@@ -55,11 +55,11 @@ namespace decode {
 
     // M extension
     rtype _MUL     = {.opcode = 0b0110011, .funct3 = 0b000, .funct7 = 0b0000001};
-    rtype _MULH    = {.opcode = 0b0110011, .funct3 = 0b001};
-    rtype _MULHSU  = {.opcode = 0b0110011, .funct3 = 0b010};
-    rtype _MULHU   = {.opcode = 0b0110011, .funct3 = 0b011};
-    rtype _DIV     = {.opcode = 0b0110011, .funct3 = 0b100};
-    rtype _DIVU    = {.opcode = 0b0110011, .funct3 = 0b101};
-    rtype _REM     = {.opcode = 0b0110011, .funct3 = 0b110};
-    rtype _REMU    = {.opcode = 0b0110011, .funct3 = 0b111};
+    rtype _MULH    = {.opcode = 0b0110011, .funct3 = 0b001, .funct7 = 0b0000001};
+    rtype _MULHSU  = {.opcode = 0b0110011, .funct3 = 0b010, .funct7 = 0b0000001};
+    rtype _MULHU   = {.opcode = 0b0110011, .funct3 = 0b011, .funct7 = 0b0000001};
+    rtype _DIV     = {.opcode = 0b0110011, .funct3 = 0b100, .funct7 = 0b0000001};
+    rtype _DIVU    = {.opcode = 0b0110011, .funct3 = 0b101, .funct7 = 0b0000001};
+    rtype _REM     = {.opcode = 0b0110011, .funct3 = 0b110, .funct7 = 0b0000001};
+    rtype _REMU    = {.opcode = 0b0110011, .funct3 = 0b111, .funct7 = 0b0000001};
 }
