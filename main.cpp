@@ -59,7 +59,6 @@ int main(int argc, char** argv) {
             instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()));
             printf("0x%08X: 0x%08" PRIX64 ": %s\n", reg->getPC32(), mem->getWord(reg->getPC32()), instruction->to_string());
             instruction->execute(reg, mem);
-            delete instruction;
         }catch( const std::out_of_range& e ) {
             printf("Expception: %s\n", e.what());
             if (instruction)
