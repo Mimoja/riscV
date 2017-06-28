@@ -45,13 +45,13 @@
 #include "base_I/XOR.h"
 #include "base_I/XORI.h"
 
-#include "M/DIV.h"
-#include "M/DIVU.h"
-#include "M/MUL.h"
-#include "M/MULH.h"
-#include "M/MULHSU.h"
-#include "M/MULHU.h"
-#include "M/REM.h"
-#include "M/REMU.h"
+#include "extension/M/DIV.h"
+#include "extension/M/DIVU.h"
+#include "extension/M/MUL.h"
+#include "extension/M/MULH.h"
+#include "extension/M/MULHSU.h"
+#include "extension/M/MULHU.h"
+#include "extension/M/REM.h"
+#include "extension/M/REMU.h"
 
 #endif //RISCV_ALL_H

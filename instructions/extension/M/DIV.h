@@ -5,8 +5,8 @@
 #ifndef RISCV_DIV_H
 #define RISCV_DIV_H
 
-#include "../Instruction.h"
-#include "../../hardware/registers.h"
+#include "../../Instruction.h"
+#include "../../../hardware/registers.h"
 
 namespace instructions {
     class DIV : public Instruction {

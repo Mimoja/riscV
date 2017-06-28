@@ -51,12 +51,12 @@ set(SOURCE_FILES
         instructions/base_I/XOR.h
         instructions/base_I/XORI.h
         instructions/Instruction.h
-        instructions/M/DIV.h
-        instructions/M/DIVU.h
-        instructions/M/MUL.h
-        instructions/M/MULH.h
-        instructions/M/MULHSU.h
-        instructions/M/MULHU.h
-        instructions/M/REM.h
-        instructions/M/REMU.h)
+        instructions/extension/M/DIV.h
+        instructions/extension/M/DIVU.h
+        instructions/extension/M/MUL.h
+        instructions/extension/M/MULH.h
+        instructions/extension/M/MULHSU.h
+        instructions/extension/M/MULHU.h
+        instructions/extension/M/REM.h
+        instructions/extension/M/REMU.h)
 add_executable(riscV ${SOURCE_FILES})

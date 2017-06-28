@@ -5,8 +5,8 @@
 #ifndef RISCV_DIVU_H
 #define RISCV_DIVU_H
 
-#include "../Instruction.h"
-#include "../../hardware/registers.h"
+#include "../../Instruction.h"
+#include "../../../hardware/registers.h"
 
 namespace instructions {
     class DIVU : public Instruction {

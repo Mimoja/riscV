@@ -5,8 +5,8 @@
 #ifndef RISCV_REMU_H
 #define RISCV_REMU_H
 
-#include "../Instruction.h"
-#include "../../hardware/registers.h"
+#include "../../Instruction.h"
+#include "../../../hardware/registers.h"
 
 namespace instructions {
     class REMU : public Instruction {

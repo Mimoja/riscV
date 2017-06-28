@@ -5,8 +5,8 @@
 #ifndef RISCV_REM_H
 #define RISCV_REM_H
 
-#include "../Instruction.h"
-#include "../../hardware/registers.h"
+#include "../../Instruction.h"
+#include "../../../hardware/registers.h"
 
 namespace instructions {
     class REM : public Instruction {

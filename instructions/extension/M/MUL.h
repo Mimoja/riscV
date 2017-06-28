@@ -5,8 +5,8 @@
 #ifndef RISCV_MUL_H
 #define RISCV_MUL_H
 
-#include "../Instruction.h"
-#include "../../hardware/registers.h"
+#include "../../Instruction.h"
+#include "../../../hardware/registers.h"
 
 namespace instructions {
     class MUL : public Instruction {

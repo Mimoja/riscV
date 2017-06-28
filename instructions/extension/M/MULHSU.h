@@ -5,8 +5,8 @@
 #ifndef RISCV_MULHSU_H
 #define RISCV_MULHSU_H
 
-#include "../Instruction.h"
-#include "../../hardware/registers.h"
+#include "../../Instruction.h"
+#include "../../../hardware/registers.h"
 
 namespace instructions {
     class MULHSU : public Instruction {
