@@ -18,7 +18,7 @@ namespace instructions {
 
         void execute(registers *reg, memory *mem) {
 
-            uint32_t old = reg->getCSR(instr.I.getImm());
+            uint64_t old = reg->getCSR(instr.I.getImm());
             reg->setReg32(instr.I.rd, old);
 
             if (instr.I.rs1 != 0) {

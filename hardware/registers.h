@@ -12,7 +12,7 @@
 class registers
 {
 public:
-    uint32_t getCSR(uint32_t index){
+    uint64_t getCSR(uint32_t index){
         throw "Unsupported CSR!";
     }
 

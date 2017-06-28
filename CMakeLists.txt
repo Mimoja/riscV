@@ -30,6 +30,10 @@ set(SOURCE_FILES
         instructions/base_I/CSRRSI.h
         instructions/base_I/CSRRW.h
         instructions/base_I/CSRRWI.h
+        instructions/base_I/ECALL.h
+        instructions/base_I/EBREAK.h
+        instructions/base_I/FENCE.h
+        instructions/base_I/FENCE.I.h
         instructions/base_I/JAL.h
         instructions/base_I/JALR.h
         instructions/base_I/LB.h
@@ -65,4 +69,5 @@ set(SOURCE_FILES
         instructions/extension/M/MULHU.h
         instructions/extension/M/REM.h
         instructions/extension/M/REMU.h )
+
 add_executable(riscV ${SOURCE_FILES})

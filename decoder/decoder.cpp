@@ -145,10 +145,10 @@ namespace decode {
         if (next_opcode == _FENCE.opcode) {
             uint8_t function = next_instruction.I.funct3;
             if (function == _FENCE.funct3) {
-                printf("FENCE\n");
+                return new instructions::FENCE(next_instruction);
             }
             if (function == _FENCE_I.funct3) {
-                printf("FENCE.I\n");
+                return new instructions::FENCE_I(next_instruction);
             }
         }
         if (next_opcode == _ECALL.opcode) {
@@ -156,10 +156,10 @@ namespace decode {
             if (function == _ECALL.funct3) {
                 uint16_t func = next_instruction.I.imm0_11;
                 if (func == _ECALL.imm0_11) {
-                    printf("ECALL\n");
+                    return new instructions::ECALL(next_instruction);
                 }
                 if (func == _EBREAK.imm0_11) {
-                    printf("EBREAK\n");
+                    return new instructions::EBREAK(next_instruction);
                 }
             }
             if (function == _CSRRW.funct3) {
