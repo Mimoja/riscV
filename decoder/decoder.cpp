@@ -2,6 +2,7 @@
 #include "decoder.h"
 #include "../instructions/all.h"
 
+
 namespace decode {
     instructions::Instruction *decode_instruction(uint32_t next) {
         instruction_type next_instruction = {.val = next};
@@ -162,22 +163,22 @@ namespace decode {
                 }
             }
             if (function == _CSRRW.funct3) {
-                printf("CSRRW\n");
+                return new instructions::CSRRW(next_instruction);
             }
             if (function == _CSRRS.funct3) {
-                printf("CSRRS\n");
+                return new instructions::CSRRS(next_instruction);
             }
             if (function == _CSRRC.funct3) {
-                printf("CSRRC\n");
+                return new instructions::CSRRC(next_instruction);
             }
             if (function == _CSRRWI.funct3) {
-                printf("CSRRWI\n");
+                return new instructions::CSRRWI(next_instruction);
             }
             if (function == _CSRRSI.funct3) {
-                printf("CSRRSI\n");
+                return new instructions::CSRRSI(next_instruction);
             }
             if (function == _CSRRCI.funct3) {
-                printf("CSRRCI\n");
+                return new instructions::CSRRCI(next_instruction);
             }
         }
         //M Extension

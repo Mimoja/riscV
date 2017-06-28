@@ -9,10 +9,21 @@
 #include <stdint.h>
 #include <stdexcept>
 
-
 class registers
 {
 public:
+    uint32_t getCSR(uint32_t index){
+        throw "Unsupported CSR!";
+    }
+
+    void setCSR(uint32_t index, uint32_t value){
+        throw "Unsupported CSR!";
+    }
+
+    void setCSRBit(uint32_t index, uint32_t bit, bool set){
+        throw "Unsupported CSR!";
+    }
+
     uint32_t getReg32(uint8_t num){
         if(num >= 32) throw std::out_of_range("Unknown register read");
         if(num == 0) return 0;
