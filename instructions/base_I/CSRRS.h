@@ -12,7 +12,8 @@ namespace instructions {
     class CSRRS : public Instruction {
     public:
         CSRRS(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "CSRRS %s<-csr:%d<-%s", registers::getName(instr.I.rd), instr.I.getImm(), registers::getName(instr.I.rs1));
+            sprintf(disas_buffer, "CSRRS %s<-csr:%d<-%s", registers::getRegisterName(instr.I.rd), instr.I.getImm(),
+                    registers::getRegisterName(instr.I.rs1));
         }
         void execute(registers* reg, memory* mem) {
 

@@ -11,7 +11,8 @@ namespace instructions {
     class SRA : public Instruction {
     public:
         SRA(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SRA %s, %s, %d", registers::getName(instr.R.rd), registers::getName(instr.R.rs1), instr.R.rs2 & 0x1F );
+            sprintf(disas_buffer, "SRA %s, %s, %d", registers::getRegisterName(instr.R.rd),
+                    registers::getRegisterName(instr.R.rs1), instr.R.rs2 & 0x1F );
         }
         void execute(registers* reg, memory* mem) {
             uint32_t regVal = reg->getReg32(instr.R.rs1);

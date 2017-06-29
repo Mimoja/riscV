@@ -13,7 +13,8 @@ namespace instructions {
     class ADDI : public Instruction {
     public:
         ADDI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "ADDI %s, %s, %d", registers::getName(instr.I.rd), registers::getName(instr.I.rs1), instr.I.getImm());
+            sprintf(disas_buffer, "ADDI %s, %s, %d", registers::getRegisterName(instr.I.rd),
+                    registers::getRegisterName(instr.I.rs1), instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.I.rd , reg->getReg32(instr.I.rs1) + instr.I.getImm());

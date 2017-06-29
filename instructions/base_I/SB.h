@@ -11,7 +11,8 @@ namespace instructions {
     class SB : public Instruction {
     public:
         SB(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SB %s, %d(%s)", registers::getName(instr.S.rs2), instr.S.getImm(), registers::getName(instr.S.rs1));
+            sprintf(disas_buffer, "SB %s, %d(%s)", registers::getRegisterName(instr.S.rs2), instr.S.getImm(),
+                    registers::getRegisterName(instr.S.rs1));
         }
         void execute(registers* reg, memory* mem) {
             uint32_t targetAddr = reg->getReg32(instr.S.rs1)+ instr.S.getImm();

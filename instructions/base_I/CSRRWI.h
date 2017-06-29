@@ -13,7 +13,7 @@ namespace instructions {
     class CSRRWI : public Instruction {
     public:
         CSRRWI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "CSRRW %s<-csr:%d<-0x%05X", registers::getName(instr.I.rd), instr.I.getImm(), instr.I.rs1);
+            sprintf(disas_buffer, "CSRRW %s<-csr:%d<-0x%05X", registers::getRegisterName(instr.I.rd), instr.I.getImm(), instr.I.rs1);
         }
         void execute(registers* reg, memory* mem) {
             if (instr.I.rd != 0) {

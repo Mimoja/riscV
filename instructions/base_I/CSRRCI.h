@@ -12,7 +12,7 @@ namespace instructions {
     class CSRRCI : public Instruction {
     public:
         CSRRCI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "CSRRCI %s<-csr:%d<-0x%05X", registers::getName(instr.I.rd), instr.I.getImm(),
+            sprintf(disas_buffer, "CSRRCI %s<-csr:%d<-0x%05X", registers::getRegisterName(instr.I.rd), instr.I.getImm(),
                     instr.I.rs1);
         }
 

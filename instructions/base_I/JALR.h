@@ -11,7 +11,8 @@ namespace instructions {
     class JALR : public Instruction {
     public:
         JALR(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "JALR %s, %08X(%s)", registers::getName(instr.I.rd), instr.I.getImm(), registers::getName(instr.I.rs1));
+            sprintf(disas_buffer, "JALR %s, %08X(%s)", registers::getRegisterName(instr.I.rd), instr.I.getImm(),
+                    registers::getRegisterName(instr.I.rs1));
         }
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.I.rd, reg->getPC32() + 4);

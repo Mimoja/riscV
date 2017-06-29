@@ -12,7 +12,9 @@ namespace instructions {
     class DIV : public Instruction {
     public:
         DIV(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "DIV %s, %s, %s", registers::getName(instr.R.rd), registers::getName(instr.R.rs1), registers::getName(instr.R.rs2));
+            sprintf(disas_buffer, "DIV %s, %s, %s", registers::getRegisterName(instr.R.rd),
+                    registers::getRegisterName(instr.R.rs1),
+                    registers::getRegisterName(instr.R.rs2));
         }
         void execute(registers* reg, memory* mem) {
             int32_t val1 = (int32_t) reg->getReg32(instr.R.rs2);

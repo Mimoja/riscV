@@ -12,7 +12,8 @@ namespace instructions {
     class FENCE : public Instruction {
     public:
         FENCE(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "FENCE %s, %s, %d", registers::getName(instr.I.rd), registers::getName(instr.I.rs1), instr.I.getImm());
+            sprintf(disas_buffer, "FENCE %s, %s, %d", registers::getRegisterName(instr.I.rd),
+                    registers::getRegisterName(instr.I.rs1), instr.I.getImm());
         }
 
         void execute(registers *reg, memory *mem) {
