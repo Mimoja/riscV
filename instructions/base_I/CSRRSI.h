@@ -16,14 +16,14 @@ namespace instructions {
         }
         void execute(registers* reg, memory* mem) {
 
-            uint32_t old = reg->getCSR(instr.I.getImm());
+            uint32_t old = reg->csr.getCSR(instr.I.getImm());
             reg->setReg32(instr.I.rd, old);
 
             if (instr.I.rs1 != 0) {
                 uint8_t mask = instr.I.rs1;
                 for (int i = 0; i < 4; i++) {
                     if(mask & BIT(i))
-                        reg->setCSRBit(instr.I.getImm(), i, true);
+                        reg->csr.setCSRBit(instr.I.getImm(), i, true);
                 }
             }
         }

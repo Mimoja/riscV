@@ -18,10 +18,10 @@ namespace instructions {
         }
         void execute(registers* reg, memory* mem) {
             if (instr.I.rd != 0) {
-                uint64_t old = reg->getCSR(instr.I.getImm());
+                uint64_t old = reg->csr.getCSR(instr.I.getImm());
                 reg->setReg32(instr.I.rd, old);
             }
-            reg->setCSR(instr.I.getImm(), reg->getReg32(instr.I.rs1));
+            reg->csr.setCSR(instr.I.getImm(), reg->getReg32(instr.I.rs1));
         }
     };
 
