@@ -68,6 +68,6 @@ set(SOURCE_FILES
         instructions/extension/M/MULHSU.h
         instructions/extension/M/MULHU.h
         instructions/extension/M/REM.h
-        instructions/extension/M/REMU.h )
+        instructions/extension/M/REMU.h hardware/CSR/csr_register.h hardware/CSR/misa.h)
 
 add_executable(riscV ${SOURCE_FILES})

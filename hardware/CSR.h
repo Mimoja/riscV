@@ -8,7 +8,8 @@
 #include <sstream>
 #include <string>
 
-#include "CSR_entries.h"
+#include "CSR/csr_register.h"
+#include "CSR/misa.h"
 
 class csr_registers{
 public:

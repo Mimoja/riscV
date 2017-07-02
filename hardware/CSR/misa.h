@@ -1,28 +1,11 @@
+//
+// Created by mimoja on 02.07.17.
+//
 
-#ifndef RISCV_CSR_CONSTANTS_H
-#define RISCV_CSR_CONSTANTS_H
-
-#include <sstream>
-#include <string>
+#ifndef RISCV_MISA_H
+#define RISCV_MISA_H
 
 namespace CSR {
-    class csr_register {
-    public:
-        csr_register(const char *n, uint32_t v) : name(n), value(v){}
-
-        const char *name;
-        uint32_t value;
-        virtual std::string toString(){
-            std::stringstream ss;
-            ss << name << ": " << value;
-            return ss.str();
-        }
-        virtual uint32_t read() { return value; };
-
-        virtual void write(uint32_t val) { value = val; };
-
-    };
-
     class misa : public csr_register {
     public:
         misa() : csr_register("misa", 0) {};
@@ -42,13 +25,13 @@ namespace CSR {
             return value;
         }
 
-        virtual std::string toString(){
+        virtual std::string toString() {
             std::stringstream ss;
             ss << name << ": " << read();
             return ss.str();
         }
 
-        void write(uint32_t val){
+        void write(uint32_t val) {
             printf("Write to masi register\n");
         };
 
@@ -63,6 +46,6 @@ namespace CSR {
         uint32_t extension(ext e) { return BIT(e); }
 
     };
-};
+}
 
-#endif //RISCV_CSR_CONSTANTS_H
+#endif //RISCV_MISA_H
