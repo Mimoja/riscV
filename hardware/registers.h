@@ -15,7 +15,7 @@
 class registers
 {
 public:
-    CSR csr;
+    csr_registers csr;
 
     registers():csr(){}
 

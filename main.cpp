@@ -73,5 +73,6 @@ int main(int argc, char** argv) {
         delete instruction;
     }
     printf("Return is %u\n", reg->getReg32(10));
+    printf("%s", reg->csr.toString().c_str());
     return 0;
 }
