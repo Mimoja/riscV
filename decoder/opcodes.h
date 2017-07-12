@@ -54,7 +54,7 @@ typedef struct _stype{
 typedef struct _btype{
     uint8_t opcode  : 7;
     uint8_t imm11   : 1;
-    uint8_t imm1_4  : 3;
+    uint8_t imm1_4  : 4;
     uint8_t funct3  : 3;
     uint8_t rs1     : 5;
     uint8_t rs2     : 5;
