@@ -11,16 +11,16 @@
 namespace instructions {
     class DIVU : public Instruction {
     public:
-        DIVU(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "DIVU %s, %s, %s", registers::getRegisterName(instr.R.rd),
-                    registers::getRegisterName(instr.R.rs1),
-                    registers::getRegisterName(instr.R.rs2));
+        DIVU(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "DIVU %s, %s, %s", reg.gp.getRegisterName(instr.R.rd),
+                    reg.gp.getRegisterName(instr.R.rs1),
+                    reg.gp.getRegisterName(instr.R.rs2));
         }
         void execute(registers* reg, memory* mem) {
-            uint32_t val1 = reg->getReg32(instr.R.rs2);
-            uint32_t val2 = reg->getReg32(instr.R.rs2);
-            if (val2 == 0) reg->setReg32(instr.R.rd, 0xffffffff);
-            else reg->setReg32(instr.R.rd, val1 / val2);
+            uint32_t val1 = reg->gp.getReg32Value(instr.R.rs2);
+            uint32_t val2 = reg->gp.getReg32Value(instr.R.rs2);
+            if (val2 == 0) reg->gp.setReg32Value(instr.R.rd, 0xffffffff);
+            else reg->gp.setReg32Value(instr.R.rd, val1 / val2);
         }
     };
 

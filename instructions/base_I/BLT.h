@@ -10,12 +10,12 @@
 namespace instructions {
     class BLT : public Instruction {
     public:
-        BLT(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "BLT %s, %s, %08X", registers::getRegisterName(instr.B.rs1),
-                    registers::getRegisterName(instr.B.rs2), instr.B.getImm());
+        BLT(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "BLT %s, %s, %08X", reg.gp.getRegisterName(instr.B.rs1),
+                    reg.gp.getRegisterName(instr.B.rs2), instr.B.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            if(((int32_t )reg->getReg32(instr.B.rs1)) < ((int32_t )reg->getReg32(instr.B.rs2)))
+            if(((int32_t )reg->gp.getReg32Value(instr.B.rs1)) < ((int32_t )reg->gp.getReg32Value(instr.B.rs2)))
                 reg->setPC32(reg->getPC32() + instr.B.getImm());
         }
     };

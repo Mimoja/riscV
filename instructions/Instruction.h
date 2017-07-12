@@ -14,7 +14,7 @@
 namespace instructions {
     class Instruction {
     public:
-        Instruction(decode::instruction_type decoded) : instr(decoded){
+        Instruction(decode::instruction_type decoded, registers reg) : instr(decoded){
             sprintf(disas_buffer, "unkown: 0x%02X 0x%07X", instr.unknown.opcode, instr.unknown.unused);
         };
 

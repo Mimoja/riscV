@@ -101,6 +101,17 @@ typedef struct _dummytype {
     uint32_t unused   : 25;
 } __attribute__((packed)) dummy;
 
+union instruction_type{
+    rtype R;
+    itype I;
+    stype S;
+    btype B;
+    utype U;
+    jtype J;
+    dummy unknown;
+    uint32_t  val;
+};
+
 extern utype _LUI     ;
 extern utype _AUIPC   ;
 extern jtype _JAL     ;
@@ -158,18 +169,6 @@ extern rtype _DIV     ;
 extern rtype _DIVU    ;
 extern rtype _REM     ;
 extern rtype _REMU    ;
-
-
-union instruction_type{
-    rtype R;
-    itype I;
-    stype S;
-    btype B;
-    utype U;
-    jtype J;
-    dummy unknown;
-    uint32_t  val;
-};
 
 }
 

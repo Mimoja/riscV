@@ -11,12 +11,12 @@
 namespace instructions {
     class XORI : public Instruction {
     public:
-        XORI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "XORI %s, %s, %d", registers::getRegisterName(instr.I.rd),
-                    registers::getRegisterName(instr.I.rs1), instr.I.getImm());
+        XORI(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "XORI %s, %s, %d", reg.gp.getRegisterName(instr.I.rd),
+                    reg.gp.getRegisterName(instr.I.rs1), instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd , reg->getReg32(instr.I.rs1) ^ instr.I.getImm());
+            reg->gp.setReg32Value(instr.I.rd , reg->gp.getReg32Value(instr.I.rs1) ^ instr.I.getImm());
         }
     };
 

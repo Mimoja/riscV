@@ -9,7 +9,7 @@
 #include "../instructions/Instruction.h"
 
 namespace decode {
-    instructions::Instruction* decode_instruction(uint32_t next);
+    instructions::Instruction* decode_instruction(uint32_t next, registers reg);
 };
 
 #endif //RISCV_DECODER_H

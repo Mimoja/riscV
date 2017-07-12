@@ -70,8 +70,7 @@ set(SOURCE_FILES
         instructions/extension/M/MULHU.h
         instructions/extension/M/REM.h
         instructions/extension/M/REMU.h
-        hardware/CSR.h
-        hardware/CSR/csr_register.h
+        hardware/CSR/csr_entry.h
         hardware/CSR/misa.h)
 
 add_executable(riscV ${SOURCE_FILES})

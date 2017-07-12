@@ -10,11 +10,11 @@
 namespace instructions {
     class AUIPC : public Instruction {
     public:
-        AUIPC(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "AUIPC %s, %d", registers::getRegisterName(instr.U.rd), instr.U.getImm());
+        AUIPC(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg)  {
+            sprintf(disas_buffer, "AUIPC %s, %d", reg.gp.getRegisterName(instr.U.rd), instr.U.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd, reg->getPC32() + instr.I.getImm());
+            reg->gp.setReg32Value(instr.I.rd, reg->getPC32() + instr.I.getImm());
         }
     };
 

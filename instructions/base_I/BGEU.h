@@ -10,12 +10,12 @@
 namespace instructions {
     class BGEU : public Instruction {
     public:
-        BGEU(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "BGEU %s, %s, %08X", registers::getRegisterName(instr.B.rs1),
-                    registers::getRegisterName(instr.B.rs2), instr.B.getImm());
+        BGEU(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "BGEU %s, %s, %08X", reg.gp.getRegisterName(instr.B.rs1),
+                    reg.gp.getRegisterName(instr.B.rs2), instr.B.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            if(reg->getReg32(instr.B.rs1) >= reg->getReg32(instr.B.rs2))
+            if(reg->gp.getReg32Value(instr.B.rs1) >= reg->gp.getReg32Value(instr.B.rs2))
                 reg->setPC32(reg->getPC32()+instr.B.getImm());
         }
     };

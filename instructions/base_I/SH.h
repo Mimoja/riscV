@@ -10,13 +10,13 @@
 namespace instructions {
     class SH : public Instruction {
     public:
-        SH(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SH %s, %d(%s)", registers::getRegisterName(instr.S.rs2), instr.S.getImm(),
-                    registers::getRegisterName(instr.S.rs1));
+        SH(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "SH %s, %d(%s)", reg.gp.getRegisterName(instr.S.rs2), instr.S.getImm(),
+                    reg.gp.getRegisterName(instr.S.rs1));
         }
         void execute(registers* reg, memory* mem) {
-            uint32_t targetAddr = reg->getReg32(instr.S.rs1)+ instr.S.getImm();
-            mem->setHalfWord(reg->getReg32(instr.S.rs2) & 0xFFFF, targetAddr);
+            uint32_t targetAddr = reg->gp.getReg32Value(instr.S.rs1)+ instr.S.getImm();
+            mem->setHalfWord(reg->gp.getReg32Value(instr.S.rs2) & 0xFFFF, targetAddr);
         }
     };
 

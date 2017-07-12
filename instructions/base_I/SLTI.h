@@ -10,12 +10,12 @@
 namespace instructions {
     class SLTI : public Instruction {
     public:
-        SLTI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "SLTI %s, %s, %d", registers::getRegisterName(instr.I.rd),
-                    registers::getRegisterName(instr.I.rs1), instr.I.getImm());
+        SLTI(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "SLTI %s, %s, %d", reg.gp.getRegisterName(instr.I.rd),
+                    reg.gp.getRegisterName(instr.I.rs1), instr.I.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd, ((int32_t)reg->getReg32(instr.I.rs1)) < ((int32_t)instr.I.getImm()));
+            reg->gp.setReg32Value(instr.I.rd, ((int32_t)reg->gp.getReg32Value(instr.I.rs1)) < ((int32_t)instr.I.getImm()));
         }
     };
 

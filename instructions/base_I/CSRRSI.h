@@ -11,13 +11,13 @@
 namespace instructions {
     class CSRRSI : public Instruction {
     public:
-        CSRRSI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "CSRRSI %s<-csr:%d<-0x%05X", registers::getRegisterName(instr.I.rd), instr.I.getImm() & 0xFFF, instr.I.rs1);
+        CSRRSI(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "CSRRSI %s<-csr:%d<-0x%05X", reg.gp.getRegisterName(instr.I.rd), instr.I.getImm() & 0xFFF, instr.I.rs1);
         }
         void execute(registers* reg, memory* mem) {
 
             uint32_t old = reg->csr.getCSR(instr.I.getImm() & 0xFFF);
-            reg->setReg32(instr.I.rd, old);
+            reg->gp.setReg32Value(instr.I.rd, old);
 
             if (instr.I.rs1 != 0) {
                 uint8_t mask = instr.I.rs1;

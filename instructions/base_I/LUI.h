@@ -10,11 +10,11 @@
 namespace instructions {
     class LUI : public Instruction {
     public:
-        LUI(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "LUI %s, %d", registers::getRegisterName(instr.U.rd), instr.U.getImm());
+        LUI(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "LUI %s, %d", reg.gp.getRegisterName(instr.U.rd), instr.U.getImm());
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.U.rd, instr.U.getImm());
+            reg->gp.setReg32Value(instr.U.rd, instr.U.getImm());
         }
     };
 

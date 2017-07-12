@@ -45,13 +45,13 @@ int main(int argc, char** argv) {
     registers* reg = new registers();
 
     reg->setPC32(reader.get_entry());
-    reg->setReg32(2,mem->getSize());
+    reg->gp.setReg32Value(2,mem->getSize());
 
     printf("Entry addr is 0x%08" PRIX64 ", offset: %ld bytes\n", (uint64_t) reader.get_entry(), (long)reader.get_entry());
     instructions::Instruction* instruction = nullptr;
 
     uint64_t simulated_return_address = 0x500;
-    reg->setReg32(1, simulated_return_address);
+    reg->gp.setReg32Value(1, simulated_return_address);
 
     while(reg->getPC32() != simulated_return_address){
         char c;
@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
         }
 
         try {
-            instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()));
+            instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()), *reg);
             printf("0x%08X: 0x%08" PRIX64 ": %s\n", reg->getPC32(), mem->getWord(reg->getPC32()), instruction->to_string());
             instruction->execute(reg, mem);
             // increment PC
@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
         }
         delete instruction;
     }
-    printf("Return is %u\n", reg->getReg32(10));
+    printf("Return is %u\n", reg->gp.getReg32Value(10));
     //printf("%s", reg->csr.toString().c_str());
     return 0;
 }

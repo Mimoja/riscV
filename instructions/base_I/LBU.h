@@ -10,13 +10,13 @@
 namespace instructions {
     class LBU : public Instruction {
     public:
-        LBU(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "LBU %s, %d(%s)", registers::getRegisterName(instr.I.rd), instr.I.getImm(),
-                    registers::getRegisterName(instr.I.rs1));
+        LBU(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "LBU %s, %d(%s)", reg.gp.getRegisterName(instr.I.rd), instr.I.getImm(),
+                    reg.gp.getRegisterName(instr.I.rs1));
         }
         void execute(registers* reg, memory* mem) {
-            uint8_t value = mem->getByte(reg->getReg32(instr.I.rs1) + instr.I.getImm());
-            reg->setReg32(instr.I.rd, value & 0x000000FF);
+            uint8_t value = mem->getByte(reg->gp.getReg32Value(instr.I.rs1) + instr.I.getImm());
+            reg->gp.setReg32Value(instr.I.rd, value & 0x000000FF);
         }
     };
 

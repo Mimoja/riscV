@@ -10,12 +10,12 @@
 namespace instructions {
     class LW : public Instruction {
     public:
-        LW(const decode::instruction_type &decoded) : Instruction(decoded) {
-            sprintf(disas_buffer, "LW %s, %d(%s)", registers::getRegisterName(instr.I.rd), instr.I.getImm(),
-                    registers::getRegisterName(instr.I.rs1));
+        LW(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "LW %s, %d(%s)", reg.gp.getRegisterName(instr.I.rd), instr.I.getImm(),
+                    reg.gp.getRegisterName(instr.I.rs1));
         }
         void execute(registers* reg, memory* mem) {
-            reg->setReg32(instr.I.rd, mem->getWord(reg->getReg32(instr.I.rs1)  + instr.I.getImm()));
+            reg->gp.setReg32Value(instr.I.rd, mem->getWord(reg->gp.getReg32Value(instr.I.rs1)  + instr.I.getImm()));
         }
     };
 
