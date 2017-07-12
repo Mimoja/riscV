@@ -30,7 +30,7 @@ typedef struct _itype{
     uint32_t getImm(){
         uint32_t sign11 = 0x00000000;
         if(imm0_11 & BIT(11)) sign11 = 0xFFFFFFFF;
-        return   (sign11  << 11)
+        return   (sign11 << 11)
                  | (imm0_11 << 0);
     }
 } __attribute__((packed)) itype;
