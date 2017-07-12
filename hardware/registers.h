@@ -290,6 +290,17 @@ public:
     };
 };
 
+class fp_registers{
+public:
+    class fp_entry{
+    public:
+        fp_entry(const char* name):value(0), name(name){};
+        double value;
+        const char* name;
+    };
+
+};
+
 class gp_registers{
 public:
     class gp_entry{
