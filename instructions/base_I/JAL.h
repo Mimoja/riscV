@@ -18,7 +18,11 @@ namespace instructions {
             reg->setReg32(instr.J.rd , reg->getPC32() + 4);
             reg->setPC32(reg->getPC32() + instr.J.getImm());
         }
+        uint8_t pc_increment(){
+            return 0;
+        }
     };
+
 
 }
 

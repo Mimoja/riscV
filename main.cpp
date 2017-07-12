@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     }
 
     ELFIO::Elf_Half seg_num = reader.segments.size();
-    memory* mem = new memory(50*1024*1024);
+    memory* mem = new memory(UINT32_MAX);
     for ( int i = 0; i < seg_num; ++i ) {
         const ELFIO::segment* pseg = reader.segments[i];
 
@@ -44,21 +44,32 @@ int main(int argc, char** argv) {
 
     registers* reg = new registers();
 
-    reg->setPC32(reader.get_entry()-4);
+    reg->setPC32(reader.get_entry());
     reg->setReg32(2,mem->getSize());
 
     printf("Entry addr is 0x%08" PRIX64 ", offset: %ld bytes\n", (uint64_t) reader.get_entry(), (long)reader.get_entry());
     instructions::Instruction* instruction = nullptr;
 
-    uint64_t simulated_return_address = mem->getSize()+4;
+    uint64_t simulated_return_address = 0x500;
     reg->setReg32(1, simulated_return_address);
 
-    while(reg->getPC32() < simulated_return_address){
-        reg->setPC32(reg->getPC32()+4);
+    while(reg->getPC32() != simulated_return_address){
+        char c;
+        do {
+            c = getchar();
+        }
+        while (isspace(c) && !(c == 'n' || c == 'r'));
+        if(c == 'r') {
+            printf("Register dump:\n%s\n", reg->to_string().c_str());
+            continue;
+        }
+
         try {
             instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()));
             printf("0x%08X: 0x%08" PRIX64 ": %s\n", reg->getPC32(), mem->getWord(reg->getPC32()), instruction->to_string());
             instruction->execute(reg, mem);
+            // increment PC
+            reg->setPC32(reg->getPC32() + instruction->pc_increment());
         }catch( const std::out_of_range& e ) {
             printf("Expception: %s\n", e.what());
             if (instruction)
@@ -73,6 +84,6 @@ int main(int argc, char** argv) {
         delete instruction;
     }
     printf("Return is %u\n", reg->getReg32(10));
-    printf("%s", reg->csr.toString().c_str());
+    //printf("%s", reg->csr.toString().c_str());
     return 0;
 }

@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <stdexcept>
 #include <map>
+#include <string.h>
 
 #include "CSR.h"
 
@@ -17,7 +18,9 @@ class registers
 public:
     csr_registers csr;
 
-    registers():csr(){}
+    registers():csr(){
+        bzero(regs, sizeof(regs));
+    }
 
     uint32_t getReg32(uint8_t num){
         if(num >= 32) throw std::out_of_range("Unknown register read");
@@ -43,9 +46,11 @@ public:
 
         for (int i = 0; i+3 < 32; i += 4) {
             char output[1000];
-            sprintf(output, "x%02d  %08" PRIX64 " %08" PRIx64 " %08" PRIx64 " %08" PRIx64 "\n", i,
-                    regs[i], regs[i+1],
-                    regs[i+2], regs[i+3]);
+            sprintf(output, "%-5s 0x%08" PRIX64 " %-5s 0x%08" PRIx64 " %-5s 0x%08" PRIx64 " %-5s 0x%08" PRIx64 "\n",
+                    getRegisterName(i),   regs[i],
+                    getRegisterName(i+1), regs[i+1],
+                    getRegisterName(i+2), regs[i+2],
+                    getRegisterName(i+3), regs[i+3]);
             str.append(output);
         }
 

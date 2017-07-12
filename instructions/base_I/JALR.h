@@ -14,12 +14,16 @@ namespace instructions {
             sprintf(disas_buffer, "JALR %s, %08X(%s)", registers::getRegisterName(instr.I.rd), instr.I.getImm(),
                     registers::getRegisterName(instr.I.rs1));
         }
+
         void execute(registers* reg, memory* mem) {
             reg->setReg32(instr.I.rd, reg->getPC32() + 4);
             reg->setPC32((reg->getReg32(instr.I.rs1) + instr.I.getImm()) & ~BIT(0));
         }
-    };
 
+        uint8_t pc_increment(){
+            return 0;
+        }
+    };
 }
 
 #endif //RISCV_JALR_H

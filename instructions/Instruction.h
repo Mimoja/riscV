@@ -24,6 +24,10 @@ namespace instructions {
             return disas_buffer;
         }
 
+        virtual uint8_t pc_increment(){
+            return 4;
+        }
+
         virtual void execute(registers* reg, memory* mem) {
 
             printf("unknown instruction 0x%08X at 0x%08X\n", instr.val, reg->getPC32());
