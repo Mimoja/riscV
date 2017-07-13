@@ -18,6 +18,7 @@ set(SOURCE_FILES
         src/hardware/CSR/csr_entry.h
         src/hardware/CSR/fcsr.h
         src/hardware/CSR/misa.h
+        src/hardware/CSR/msu_status.h
         src/hardware/cpu.h
         src/hardware/interrups.h
         src/instructions/all.h
@@ -97,6 +98,6 @@ set(SOURCE_FILES
         src/instructions/extension/D/FMIN.D.h
         src/instructions/extension/D/FMUL.D.h
         src/instructions/extension/D/FSUB.D.h
-        src/hardware/CSR/mstatus.h)
+        src/hardware/CSR/csr_ids.h)
 
 add_executable(riscV ${SOURCE_FILES})

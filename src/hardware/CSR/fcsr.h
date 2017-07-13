@@ -35,12 +35,6 @@ namespace CSR {
         };
 
 
-        virtual std::string toString() {
-            std::stringstream ss;
-            ss << name << ": " << read();
-            return ss.str();
-        }
-
         void write(uint32_t val) {
             // ignore writes to reserved bits
             value = val & 0x000000FF;

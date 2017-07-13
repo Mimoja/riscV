@@ -11,13 +11,13 @@
 uint32_t csr_registers::getCSR(uint32_t index){
     csr_entry* tmp = regs[index];
     if(tmp == NULL) throw new std::out_of_range("csr not found!");
-    return tmp->read();
+    return tmp->read(index);
 }
 
 void csr_registers::setCSR(uint32_t index, uint32_t value){
     csr_entry* tmp = regs[index];
     if(tmp == NULL) throw new std::out_of_range("csr not found!");
-    tmp->write(value);
+    tmp->write(index, value);
 }
 
 void csr_registers::setCSRBit(uint32_t index, uint32_t bit, bool set){
@@ -29,7 +29,7 @@ void csr_registers::setCSRBit(uint32_t index, uint32_t bit, bool set){
         newVal |= BIT(bit);
     else
         newVal &= ~BIT(bit);
-    tmp->write(newVal);
+    tmp->write(index, newVal);
 }
 
 std::string csr_registers::to_string() {
@@ -41,7 +41,7 @@ std::string csr_registers::to_string() {
 }
 
 uint64_t csr_registers::getTwoEntryValue(uint16_t upper, uint16_t lower){
-    return regs.at(upper)->value << 32 | regs.at(lower)->value;
+    return (uint64_t) regs.at(upper)->value << 32 | regs.at(lower)->value;
 }
 
 void csr_registers::setTwoEntryValue(uint16_t upper, uint16_t lower, uint64_t value){

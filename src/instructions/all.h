@@ -55,9 +55,9 @@
 #include "base_I/XOR.h"
 #include "base_I/XORI.h"
 
-#include "priviledged/MRET.h"
-#include "priviledged/SRET.h"
-#include "priviledged/URET.h"
+#include "base_I/priviledged/MRET.h"
+#include "base_I/priviledged/SRET.h"
+#include "base_I/priviledged/URET.h"
 
 #include "extension/M/DIV.h"
 #include "extension/M/DIVU.h"

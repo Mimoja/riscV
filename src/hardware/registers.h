@@ -15,6 +15,8 @@
 #include "CSR/csr_entry.h"
 #include "CSR/misa.h"
 #include "CSR/fcsr.h"
+#include "CSR/msu_status.h"
+#include "CSR/csr_ids.h"
 
 //prototypes
 class csr_registers;
@@ -25,21 +27,16 @@ class registers;
 
 class csr_registers{
 public:
-    uint32_t getCSR(uint32_t index);
-
-    void setCSR(uint32_t index, uint32_t value);
-    void setCSRBit(uint32_t index, uint32_t bit, bool set);
-    std::string to_string();
-    uint64_t getTwoEntryValue(uint16_t upper, uint16_t lower);
-    void setTwoEntryValue(uint16_t upper, uint16_t lower, uint64_t value);
-
-    // allow direct access for sideffect free handling
-    std::map<uint16_t, csr_entry*> regs ={
-            //User Trap Setup
-            {0x000, new csr_entry("ustatus", 0)},
-            {0x004, new csr_entry("uie", 0)},
+    csr_registers():regs(), regs_by_name(){
+        //Trap Setup
+        csr_entry* status = new msu_status();
+        addEntry(USTATUS_ID, status);
+        addEntry(SSTATUS_ID, status);
+        addEntry(MSTATUS_ID, status);
+ /*
+  *        {0x004, new csr_entry("uie", 0)},
             {0x005, new csr_entry("utvec", 0)},
-            //User Trap Handling
+           //Trap Handling
             {0x040, new csr_entry("uscratch", 0)},
             {0x041, new csr_entry("uepc", 0)},
             {0x042, new csr_entry("ucause", 0)},
@@ -49,6 +46,21 @@ public:
             {0x001, new csr_entry("fflags", 0)},
             {0x002, new csr_entry("frm", 0)},
             {0x003, new CSR::fcsr()},
+            */
+
+        addEntry(CYCLE_ID, new csr_entry("cycle", 0));
+    };
+    uint32_t getCSR(uint32_t index);
+    void setCSR(uint32_t index, uint32_t value);
+    void setCSRBit(uint32_t index, uint32_t bit, bool set);
+    std::string to_string();
+    uint64_t getTwoEntryValue(uint16_t upper, uint16_t lower);
+    void setTwoEntryValue(uint16_t upper, uint16_t lower, uint64_t value);
+
+    // allow direct access for sideeffect free handling
+    std::map<uint16_t, csr_entry*> regs;
+    std::map<const char*, csr_entry*> regs_by_name;
+/*
             //User Counter/Timers
             {0xC00, new csr_entry("cycle", 0)},
             {0xC01, new csr_entry("time", 0)},
@@ -115,7 +127,7 @@ public:
             {0xC9E, new csr_entry("hpmcounter30h", 0)},
             {0xC9F, new csr_entry("hpmcounter31h", 0)},
             //Supervisor Trap Setup
-            {0x100, new csr_entry("sstatus", 0)},
+            {SSTATUS_ID, new csr_entry("sstatus", 0)},
             {0x102, new csr_entry("sedeleg", 0)},
             {0x103, new csr_entry("sideleg", 0)},
             {0x104, new csr_entry("sie", 0)},
@@ -135,7 +147,7 @@ public:
             {0xF13, new csr_entry("mimpid", 42)},
             {0xF14, new csr_entry("mhartid", 0)},
             //Machine Trap Setup
-            {0x300, new csr_entry("mstatus", 0)},
+            {MSTATUS_ID, new csr_entry("mstatus", 0)},
             {0x301, new misa()},
             {0x302, new csr_entry("medeleg", 0)},
             {0x303, new csr_entry("mideleg", 0)},
@@ -271,7 +283,13 @@ public:
             {0x7B0, new csr_entry("dcsr", 0)},
             {0x7B1, new csr_entry("dpc", 0)},
             {0x7B2, new csr_entry("dscratch", 0)},
-    };
+*/
+
+private:
+    void addEntry(uint16_t id, csr_entry* csr){
+        regs.insert(std::pair<uint16_t, csr_entry*>(id, csr));
+        regs_by_name.insert(std::pair<const char* , csr_entry*>(csr->get_name(id), csr));
+    }
 };
 
 class fp_registers{

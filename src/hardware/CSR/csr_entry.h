@@ -14,7 +14,6 @@ class csr_entry {
 public:
     csr_entry(const char *n, uint32_t v) : name(n), value(v) {}
 
-    const char *name;
     uint32_t value;
 
     virtual std::string toString() {
@@ -23,9 +22,12 @@ public:
         return ss.str();
     }
 
-    virtual uint32_t read() { return value; };
+    virtual uint32_t read(uint16_t id) { return value; };
+    virtual void write(uint16_t id, uint32_t val) { value = val; };
+    virtual const char* get_name(uint16_t id){ return name; }
 
-    virtual void write(uint32_t val) { value = val; };
+protected:
+    const char *name;
 
 };
 

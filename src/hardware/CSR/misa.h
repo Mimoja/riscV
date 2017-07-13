@@ -27,10 +27,6 @@ public:
         return value;
     }
 
-    void write(uint32_t val) {
-        printf("Write to masi register\n");
-    };
-
 private:
     const uint32_t XLEN32 = (1 << 30);
     const uint32_t XLEN64 = (2 << 30);
