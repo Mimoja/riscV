@@ -27,12 +27,6 @@ public:
         return value;
     }
 
-    virtual std::string toString() {
-        std::stringstream ss;
-        ss << name << ": " << read();
-        return ss.str();
-    }
-
     void write(uint32_t val) {
         printf("Write to masi register\n");
     };

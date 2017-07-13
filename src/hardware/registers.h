@@ -28,10 +28,10 @@ public:
     uint32_t getCSR(uint32_t index);
 
     void setCSR(uint32_t index, uint32_t value);
-
     void setCSRBit(uint32_t index, uint32_t bit, bool set);
-
     std::string to_string();
+    uint64_t getTwoEntryValue(uint16_t upper, uint16_t lower);
+    void setTwoEntryValue(uint16_t upper, uint16_t lower, uint64_t value);
 
     // allow direct access for sideffect free handling
     std::map<uint16_t, csr_entry*> regs ={

@@ -43,6 +43,11 @@ public:
                 instruction->execute(reg, mem);
                 // increment PC
                 reg->setPC32(reg->getPC32() + instruction->pc_increment());
+
+                // increment cycle counter
+                uint64_t cycle_counter = reg->csr.getTwoEntryValue(0xC00, 0xC80);
+                reg->csr.setTwoEntryValue(0xC00, 0xC80, cycle_counter+1);
+
             } catch (priviledgeReturn pr) {
                 printf("MRET!!!!!!!\n");
                 //Todo implement

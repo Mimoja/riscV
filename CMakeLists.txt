@@ -16,8 +16,10 @@ set(SOURCE_FILES
         src/hardware/registers.h
         src/hardware/registers.cpp
         src/hardware/CSR/csr_entry.h
+        src/hardware/CSR/fcsr.h
         src/hardware/CSR/misa.h
         src/hardware/cpu.h
+        src/hardware/interrups.h
         src/instructions/all.h
         src/instructions/base_I/ADD.h
         src/instructions/base_I/ADDI.h
@@ -66,7 +68,9 @@ set(SOURCE_FILES
         src/instructions/base_I/SW.h
         src/instructions/base_I/XOR.h
         src/instructions/base_I/XORI.h
-        src/instructions/priviledged/MRET.h
+        src/instructions/base_I/priviledged/MRET.h
+        src/instructions/base_I/priviledged/SRET.h
+        src/instructions/base_I/priviledged/URET.h
         src/instructions/Instruction.h
         src/instructions/extension/M/DIV.h
         src/instructions/extension/M/DIVU.h
@@ -93,6 +97,6 @@ set(SOURCE_FILES
         src/instructions/extension/D/FMIN.D.h
         src/instructions/extension/D/FMUL.D.h
         src/instructions/extension/D/FSUB.D.h
-        )
+        src/hardware/CSR/mstatus.h)
 
 add_executable(riscV ${SOURCE_FILES})

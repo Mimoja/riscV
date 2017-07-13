@@ -5,8 +5,8 @@
 #ifndef RISCV_URET_H
 #define RISCV_URET_H
 
-#include "../Instruction.h"
-#include "../../hardware/interrups.h"
+#include "../../Instruction.h"
+#include "../../../hardware/interrups.h"
 
 namespace instructions {
     class URET : public Instruction {

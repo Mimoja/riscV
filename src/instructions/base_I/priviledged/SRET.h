@@ -5,8 +5,8 @@
 #ifndef RISCV_SRET_H
 #define RISCV_SRET_H
 
-#include "../Instruction.h"
-#include "../../hardware/interrups.h"
+#include "../../Instruction.h"
+#include "../../../hardware/interrups.h"
 
 namespace instructions {
     class SRET : public Instruction {

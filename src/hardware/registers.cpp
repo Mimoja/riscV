@@ -40,6 +40,14 @@ std::string csr_registers::to_string() {
     return ss.str();
 }
 
+uint64_t csr_registers::getTwoEntryValue(uint16_t upper, uint16_t lower){
+    return regs.at(upper)->value << 32 | regs.at(lower)->value;
+}
+
+void csr_registers::setTwoEntryValue(uint16_t upper, uint16_t lower, uint64_t value){
+    regs.at(upper)->value = value >> 32;
+    regs.at(lower)->value = value & 0xFFFFFFFF;
+}
 /*
  * FP
  */
