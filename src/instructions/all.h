@@ -70,4 +70,7 @@
 #include "extension/F/FSUB.h"
 #include "extension/F/FMUL.h"
 #include "extension/F/FDIV.h"
+#include "extension/F/FMAX.h"
+#include "extension/F/FMIN.h"
+
 #endif //RISCV_ALL_H

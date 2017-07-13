@@ -81,6 +81,8 @@ set(SOURCE_FILES
         src/instructions/extension/F/FSUB.h
         src/instructions/extension/F/FMUL.h
         src/instructions/extension/F/FDIV.h
+        src/instructions/extension/F/FMIN.h
+        src/instructions/extension/F/FMAX.h
         )
 
 add_executable(riscV ${SOURCE_FILES})

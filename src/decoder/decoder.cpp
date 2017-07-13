@@ -216,7 +216,7 @@ namespace decode {
             return new instructions::FSW(next_instruction, reg);
         }
         if (next_opcode == _FADD_S.opcode) {
-            uint8_t function = next_instruction.R.funct3;
+            uint8_t function = next_instruction.R.funct7;
             if(function == _FADD_S.funct7) {
                 return new instructions::FADD(next_instruction, reg);
             }
@@ -228,6 +228,14 @@ namespace decode {
             }
             if(function == _FDIV_S.funct7) {
                 return new instructions::FDIV(next_instruction, reg);
+            }
+            if(function == _FMAX_S.funct7) {
+                if(next_instruction.R.funct3 == _FMAX_S.funct3){
+                    return new instructions::FMAX(next_instruction, reg);
+                }
+                if(next_instruction.R.funct3 == _FMIN_S.funct3){
+                    return new instructions::FMIN(next_instruction, reg);
+                }
             }
         }
         return new instructions::Instruction(next_instruction, reg);
