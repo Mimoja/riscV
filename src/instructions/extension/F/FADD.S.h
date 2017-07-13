@@ -8,10 +8,10 @@
 #include "../../Instruction.h"
 
 namespace instructions {
-    class FADD_S : public Instruction {
+    class FADD : public Instruction {
     public:
-        FADD_S(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
-            sprintf(disas_buffer, "FADD_S.S. %s, %s, %s", reg.gp.getRegisterName(instr.R.rd),
+        FADD(const decode::instruction_type &decoded, registers reg) : Instruction(decoded, reg) {
+            sprintf(disas_buffer, "FADD.S.S. %s, %s, %s", reg.gp.getRegisterName(instr.R.rd),
                     reg.gp.getRegisterName(instr.R.rs1),
                     reg.gp.getRegisterName(instr.R.rs2));
         }

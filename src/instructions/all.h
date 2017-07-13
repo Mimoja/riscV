@@ -70,7 +70,7 @@
 
 #include "extension/F/FLW.h"
 #include "extension/F/FSW.h"
-#include "extension/F/FADD.S..h"
+#include "extension/F/FADD.S.h"
 #include "extension/F/FSUB.S.h"
 #include "extension/F/FMUL.S.h"
 #include "extension/F/FDIV.S.h"
