@@ -2,7 +2,6 @@
 #include "decoder.h"
 #include "../instructions/all.h"
 
-
 namespace decode {
     instructions::Instruction *decode_instruction(uint32_t next, registers reg) {
         instruction_type next_instruction = {.val = next};
@@ -207,6 +206,28 @@ namespace decode {
             }
             if (function == _REMU.funct3) {
                 return new instructions::REMU(next_instruction, reg);
+            }
+        }
+        //F Extension
+        if (next_opcode == _FLW.opcode && next_instruction.I.funct3 == _FLW.funct3){
+            return new instructions::FLW(next_instruction, reg);
+        }
+        if (next_opcode == _FSW.opcode && next_instruction.I.funct3 == _FSW.funct3){
+            return new instructions::FSW(next_instruction, reg);
+        }
+        if (next_opcode == _FADD_S.opcode) {
+            uint8_t function = next_instruction.R.funct3;
+            if(function == _FADD_S.funct7) {
+                return new instructions::FADD(next_instruction, reg);
+            }
+            if(function == _FSUB_S.funct7) {
+                return new instructions::FSUB(next_instruction, reg);
+            }
+            if(function == _FMUL_S.funct7) {
+                return new instructions::FMUL(next_instruction, reg);
+            }
+            if(function == _FDIV_S.funct7) {
+                return new instructions::FDIV(next_instruction, reg);
             }
         }
         return new instructions::Instruction(next_instruction, reg);

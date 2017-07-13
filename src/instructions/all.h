@@ -64,4 +64,10 @@
 #include "extension/M/REM.h"
 #include "extension/M/REMU.h"
 
+#include "extension/F/FLW.h"
+#include "extension/F/FSW.h"
+#include "extension/F/FADD.h"
+#include "extension/F/FSUB.h"
+#include "extension/F/FMUL.h"
+#include "extension/F/FDIV.h"
 #endif //RISCV_ALL_H

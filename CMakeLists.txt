@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 project(riscV)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 include_directories(extern)
 
@@ -13,6 +14,9 @@ set(SOURCE_FILES
         src/decoder/opcodes.h
         src/hardware/memory.h
         src/hardware/registers.h
+        src/hardware/registers.cpp
+        src/hardware/CSR/csr_entry.h
+        src/hardware/CSR/misa.h
         src/instructions/all.h
         src/instructions/base_I/ADD.h
         src/instructions/base_I/ADDI.h
@@ -70,7 +74,13 @@ set(SOURCE_FILES
         src/instructions/extension/M/MULHU.h
         src/instructions/extension/M/REM.h
         src/instructions/extension/M/REMU.h
-        src/hardware/CSR/csr_entry.h
-        src/hardware/CSR/misa.h)
+        src/instructions/extension/F/FLW.h
+        src/instructions/extension/F/FSW.h
+        src/instructions/extension/F/FMADD.S.h
+        src/instructions/extension/F/FADD.h
+        src/instructions/extension/F/FSUB.h
+        src/instructions/extension/F/FMUL.h
+        src/instructions/extension/F/FDIV.h
+        )
 
 add_executable(riscV ${SOURCE_FILES})

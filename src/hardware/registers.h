@@ -14,43 +14,27 @@
 
 #include "CSR/csr_entry.h"
 #include "CSR/misa.h"
+#include "CSR/fcsr.h"
+
+//prototypes
+class csr_registers;
+class fp_registers;
+class gp_registers;
+class registers;
+
 
 class csr_registers{
 public:
-    uint32_t getCSR(uint32_t index){
-        csr_entry* tmp = csr[index];
-        if(tmp == NULL) throw new std::out_of_range("csr not found!");
-        return tmp->read();
-    }
+    uint32_t getCSR(uint32_t index);
 
-    void setCSR(uint32_t index, uint32_t value){
-        csr_entry* tmp = csr[index];
-        if(tmp == NULL) throw new std::out_of_range("csr not found!");
-        tmp->write(value);
-    }
+    void setCSR(uint32_t index, uint32_t value);
 
-    void setCSRBit(uint32_t index, uint32_t bit, bool set){
-        csr_entry* tmp = csr[index];
-        if(tmp == NULL) throw new std::out_of_range("csr not found!");
-        
-        uint32_t newVal = tmp->value;
-        if(set)
-            newVal |= BIT(bit);
-        else
-            newVal &= ~BIT(bit);
-        tmp->write(newVal);
-    }
+    void setCSRBit(uint32_t index, uint32_t bit, bool set);
 
-    std::string toString(){
-        std::stringstream ss;
-        for(auto const &entry : csr) {
-            ss << "0x" << std::hex << (uint16_t )entry.first << " " <<entry.second->toString() << std::endl;
-        }
-        return ss.str();
-    }
+    std::string to_string();
 
     // allow direct access for sideffect free handling
-    std::map<uint16_t, csr_entry*> csr ={
+    std::map<uint16_t, csr_entry*> regs ={
             //User Trap Setup
             {0x000, new csr_entry("ustatus", 0)},
             {0x004, new csr_entry("uie", 0)},
@@ -64,7 +48,7 @@ public:
             //User floating point CSRs
             {0x001, new csr_entry("fflags", 0)},
             {0x002, new csr_entry("frm", 0)},
-            {0x003, new csr_entry("fcsr", 0)},
+            {0x003, new CSR::fcsr()},
             //User Counter/Timers
             {0xC00, new csr_entry("cycle", 0)},
             {0xC01, new csr_entry("time", 0)},
@@ -291,12 +275,58 @@ public:
 };
 
 class fp_registers{
+
 public:
     class fp_entry{
     public:
         fp_entry(const char* name):value(0), name(name){};
         double value;
         const char* name;
+    };
+
+    void setSinglePrevisionValue(uint8_t num, float value);
+    float getSinglePrevisionValue(uint8_t num);
+
+
+    csr_entry* getFFLAGS(registers* reg);
+    csr_entry* getFRM(registers* reg);
+    CSR::fcsr* getFCSR(registers* reg);
+
+
+private:
+    std::array<fp_entry*, 32> regs = {
+            new fp_entry("f0"),
+            new fp_entry("f1"),
+            new fp_entry("f2"),
+            new fp_entry("f3"),
+            new fp_entry("f4"),
+            new fp_entry("f5"),
+            new fp_entry("f6"),
+            new fp_entry("f7"),
+            new fp_entry("f8"),
+            new fp_entry("f9"),
+            new fp_entry("f10"),
+            new fp_entry("f11"),
+            new fp_entry("f12"),
+            new fp_entry("f13"),
+            new fp_entry("f14"),
+            new fp_entry("f15"),
+            new fp_entry("f16"),
+            new fp_entry("f17"),
+            new fp_entry("f18"),
+            new fp_entry("f19"),
+            new fp_entry("f20"),
+            new fp_entry("f21"),
+            new fp_entry("f22"),
+            new fp_entry("f23"),
+            new fp_entry("f24"),
+            new fp_entry("f25"),
+            new fp_entry("f26"),
+            new fp_entry("f27"),
+            new fp_entry("f28"),
+            new fp_entry("f29"),
+            new fp_entry("f30"),
+            new fp_entry("f31"),
     };
 
 };
@@ -310,40 +340,13 @@ public:
         const char* name;
     };
 
-    uint32_t getReg32Value(uint8_t num){
-        if(num >= 32) throw std::out_of_range("Unknown register read");
-        if(num == 0) return 0;
-        return regs[num]->value & 0xFFFFFFFF;
-    }
-
-    void setReg32Value(uint8_t num, uint64_t value){
-        if(num >= 32) throw std::out_of_range("Unknown register write");
-        if(num != 0)  regs[num]->value = value & 0xFFFFFFFF;
-    }
-
-    const char* getRegisterName(uint8_t num){
-        if (num >= 32) throw std::out_of_range("Unknown register read");
-        return regs[num]->name;
-    }
-
-    std::string to_string() {
-        std::string str;
-
-        for (int i = 0; i+3 < 32; i += 4) {
-            char output[1000];
-            sprintf(output, "%-5s 0x%08" PRIX64 " %-5s 0x%08" PRIx64 " %-5s 0x%08" PRIx64 " %-5s 0x%08" PRIx64 "\n",
-                    getRegisterName(i),   regs[i]->value,
-                    getRegisterName(i+1), regs[i+1]->value,
-                    getRegisterName(i+2), regs[i+2]->value,
-                    getRegisterName(i+3), regs[i+3]->value);
-            str.append(output);
-        }
-
-        return str;
-    }
+    uint32_t getReg32Value(uint8_t num);
+    void setReg32Value(uint8_t num, uint64_t value);
+    const char* getRegisterName(uint8_t num);
+    std::string to_string();
 
 private:
-    std::vector<gp_entry*> regs = {
+    std::array<gp_entry*, 32> regs = {
             new gp_entry("zero"),
             new gp_entry("ra"),
             new gp_entry("sp"),
@@ -384,27 +387,13 @@ class registers
 public:
     csr_registers csr;
     gp_registers gp;
+    fp_registers fp;
 
-    registers():csr(), gp(){};
+    registers():csr(), gp(), fp(){};
 
-    void setPC32(uint64_t pc){
-        progcounter = pc & 0xFFFFFFFF;
-    }
-
-    uint32_t getPC32(){
-        return progcounter & 0xFFFFFFFF;
-    }
-
-    std::string to_string() {
-        std::string str;
-        str.append(gp.to_string());
-        str.append(csr.toString());
-
-        char output[1000];
-        sprintf(output, "pc = 0x%08" PRIx64 "\n", progcounter);
-        str.append(output);
-        return str;
-    }
+    void setPC32(uint64_t pc);
+    uint32_t getPC32();
+    std::string to_string();
 
 private:
     uint64_t progcounter;

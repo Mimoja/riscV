@@ -42,12 +42,13 @@ public:
     {
         return getHalfWord(address) | (getHalfWord(address+2) << 16);
     }
+
     uint64_t getLongWord(uint64_t address)
     {
         return getWord(address) | (getWord(address+4) << 32);;
     }
 
-    void setByte(uint8_t byte, uint64_t address){
+    void setByte(uint64_t address, uint8_t byte) {
         if(address >= size){
             char buffer[1024];
             sprintf(buffer,"Unallowed memory write at 0x%08" PRIx64 " to 0x%02X", address, byte);
@@ -56,23 +57,23 @@ public:
         mem[address] = byte;
     }
 
-    void setHalfWord(uint16_t hw, uint64_t address){
-        setByte(hw & 0xFFFF, address);
-        setByte((hw >> 8) & 0xFFFF, address + 1);
+    void setHalfWord(uint64_t address, uint16_t hw) {
+        setByte(address, hw & 0xFFFF);
+        setByte(address + 1, (hw >> 8) & 0xFFFF);
     }
 
-    void setWord(uint32_t w, uint64_t address){
-        setHalfWord(w & 0xFFFFFFFF, address);
-        setHalfWord((w >> 16) & 0xFFFFFFFF, address + 2);
+    void setWord(uint64_t address, uint32_t w) {
+        setHalfWord(address, w & 0xFFFFFFFF);
+        setHalfWord(address + 2, (w >> 16) & 0xFFFFFFFF);
     }
 
-    void setLongWord(uint64_t lw, uint64_t address){
-        setWord(lw & 0xFFFFFFFFFFFFFFFF, address);
-        setWord((lw >> 32) & 0xFFFFFFFFFFFFFFFF, address + 4);
+    void setLongWord(uint64_t address, uint64_t lw) {
+        setWord(address, lw & 0xFFFFFFFFFFFFFFFF);
+        setWord(address + 4, (lw >> 32) & 0xFFFFFFFFFFFFFFFF);
     }
     void copyToMem(uint8_t * src, uint64_t dest_offset, uint64_t length){
         for (int i = 0; i < length; ++i) {
-            setByte(src[i], dest_offset+i);
+            setByte(dest_offset + i, src[i]);
         }
     }
 

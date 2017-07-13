@@ -62,4 +62,60 @@ namespace decode {
     rtype _DIVU    = {.opcode = 0b0110011, .funct3 = 0b101, .funct7 = 0b0000001};
     rtype _REM     = {.opcode = 0b0110011, .funct3 = 0b110, .funct7 = 0b0000001};
     rtype _REMU    = {.opcode = 0b0110011, .funct3 = 0b111, .funct7 = 0b0000001};
+
+    // F extension
+    itype _FLW       = {.opcode = 0b0000111, .funct3 = 0b010};
+    stype _FSW       = {.opcode = 0b0100111, .funct3 = 0b010};
+    r4type _FMADD_S  = {.opcode = 0b1000011, .funct2 = 0b00};
+    r4type _FMSUB_S  = {.opcode = 0b1000111, .funct2 = 0b00};
+    r4type _FNMADD_S = {.opcode = 0b1001011, .funct2 = 0b00};
+    r4type _FNMSUM_S = {.opcode = 0b1001111, .funct2 = 0b00};
+    rtype _FADD_S    = {.opcode = 0b1010011, .funct7 = 0b0000000};
+    rtype _FSUB_S    = {.opcode = 0b1010011, .funct7 = 0b0000100};
+    rtype _FMUL_S    = {.opcode = 0b1010011, .funct7 = 0b0001000};
+    rtype _FDIV_S    = {.opcode = 0b1010011, .funct7 = 0b0001100};
+    rtype _FSQRT_S   = {.opcode = 0b1010011, .funct7 = 0b0101100, .rs2 = 0b00000};
+    rtype _FSGNJ_S   = {.opcode = 0b1010011, .funct7 = 0b0010000, .funct3 = 0b000};
+    rtype _FSGNJN_S  = {.opcode = 0b1010011, .funct7 = 0b0010000, .funct3 = 0b001};
+    rtype _FSGNJX_S  = {.opcode = 0b1010011, .funct7 = 0b0010000, .funct3 = 0b010};
+    rtype _FMIN_S    = {.opcode = 0b1010011, .funct7 = 0b0010100, .funct3 = 0b000};
+    rtype _FMAX_S    = {.opcode = 0b1010011, .funct7 = 0b0010100, .funct3 = 0b001};
+    rtype _FCVT_W_S  = {.opcode = 0b1010011, .funct7 = 0b1100000, .rs2 = 0b00000};
+    rtype _FCVT_WU_S = {.opcode = 0b1010011, .funct7 = 0b1100000, .rs2 = 0b00001};
+    rtype _FMV_X_W   = {.opcode = 0b1010011, .funct7 = 0b1110000, .rs2 = 0b00000};
+    rtype _FEQ_S     = {.opcode = 0b1010011, .funct7 = 0b1010000};
+    rtype _FLT_S     = {.opcode = 0b1010011, .funct7 = 0b1010000};
+    rtype _FLE_S     = {.opcode = 0b1010011, .funct7 = 0b1010000};
+    rtype _FCLASS_S  = {.opcode = 0b1010011, .funct7 = 0b1110000, .rs2 = 0b00000};
+    rtype _FCVT_S_W  = {.opcode = 0b1010011, .funct7 = 0b1101000, .rs2 = 0b00000};
+    rtype _FCVT_S_WU = {.opcode = 0b1010011, .funct7 = 0b1101000, .rs2 = 0b00001};
+    rtype _FMV_W_X   = {.opcode = 0b1010011, .funct7 = 0b1111000, .rs2 = 0b00000};
+
+    // D extension
+    itype _FLD       = {.opcode = 0b0000111, .funct3 = 0b011};
+    stype _FSD       = {.opcode = 0b0100111, .funct3 = 0b011};
+    r4type _FMADD_D  = {.opcode = 0b1000011, .funct2 = 0b01};
+    r4type _FMSUB_D  = {.opcode = 0b1000111, .funct2 = 0b01};
+    r4type _FNMADD_D = {.opcode = 0b1001011, .funct2 = 0b01};
+    r4type _FNMSUM_D = {.opcode = 0b1001111, .funct2 = 0b01};
+    rtype _FADD_D    = {.opcode = 0b1010011, .funct7 = 0b0000001};
+    rtype _FSUB_D    = {.opcode = 0b1010011, .funct7 = 0b0000101};
+    rtype _FMUL_D    = {.opcode = 0b1010011, .funct7 = 0b0001001};
+    rtype _FDIV_D    = {.opcode = 0b1010011, .funct7 = 0b0001101};
+    rtype _FSQRT_D   = {.opcode = 0b1010011, .funct7 = 0b0101101, .rs2 = 0b00000};
+    rtype _FSGNJ_D   = {.opcode = 0b1010011, .funct7 = 0b0010001, .funct3 = 0b000};
+    rtype _FSGNJN_D  = {.opcode = 0b1010011, .funct7 = 0b0010001, .funct3 = 0b001};
+    rtype _FSGNJX_D  = {.opcode = 0b1010011, .funct7 = 0b0010001, .funct3 = 0b010};
+    rtype _FMIN_D    = {.opcode = 0b1010011, .funct7 = 0b0010101, .funct3 = 0b000};
+    rtype _FMAX_D    = {.opcode = 0b1010011, .funct7 = 0b0010101, .funct3 = 0b001};
+    rtype _FCVT_S_D  = {.opcode = 0b1010011, .funct7 = 0b0100000, .rs2 = 0b00001};
+    rtype _FCVT_D_S  = {.opcode = 0b1010011, .funct7 = 0b0100001, .rs2 = 0b00000};
+    rtype _FEQ_D     = {.opcode = 0b1010011, .funct7 = 0b1010001, .funct3 = 0b010};
+    rtype _FLT_D     = {.opcode = 0b1010011, .funct7 = 0b1010001, .funct3 = 0b001};
+    rtype _FLE_D     = {.opcode = 0b1010011, .funct7 = 0b1010001, .funct3 = 0b000};
+    rtype _FCLASS_D  = {.opcode = 0b1010011, .funct7 = 0b1110001, .rs2 = 0b00000, .funct3 = 0b001};
+    rtype _FCVT_W_D  = {.opcode = 0b1010011, .funct7 = 0b1100001, .rs2 = 0b00000};
+    rtype _FCVT_WU_D = {.opcode = 0b1010011, .funct7 = 0b1100001, .rs2 = 0b00001};
+    rtype _FCVT_D_W  = {.opcode = 0b1010011, .funct7 = 0b1101000, .rs2 = 0b00000};
+    rtype _FCVT_D_WU = {.opcode = 0b1010011, .funct7 = 0b1101000, .rs2 = 0b00001};
 }

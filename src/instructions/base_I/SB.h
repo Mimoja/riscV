@@ -16,7 +16,7 @@ namespace instructions {
         }
         void execute(registers* reg, memory* mem) {
             uint32_t targetAddr = reg->gp.getReg32Value(instr.S.rs1)+ instr.S.getImm();
-            mem->setByte(reg->gp.getReg32Value(instr.S.rs2) & 0xFF, targetAddr);
+            mem->setByte(targetAddr, reg->gp.getReg32Value(instr.S.rs2) & 0xFF);
         }
     };
 

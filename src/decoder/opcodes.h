@@ -21,6 +21,16 @@ typedef struct _rtype{
     uint8_t funct7 : 7;
 } __attribute__((packed)) rtype;
 
+typedef struct _r4type{
+    uint8_t opcode : 7;
+    uint8_t rd     : 5;
+    uint8_t funct3 : 3;
+    uint8_t rs1    : 5;
+    uint8_t rs2    : 5;
+    uint8_t funct2 : 2;
+    uint8_t rs3    : 5;
+} __attribute__((packed)) r4type;
+
 typedef struct _itype{
     uint8_t opcode   : 7;
     uint8_t rd       : 5;
@@ -103,6 +113,7 @@ typedef struct _dummytype {
 
 union instruction_type{
     rtype R;
+    r4type R4;
     itype I;
     stype S;
     btype B;
@@ -170,6 +181,33 @@ extern rtype _DIVU    ;
 extern rtype _REM     ;
 extern rtype _REMU    ;
 
+// F Extension
+extern itype _FLW     ;
+extern stype _FSW     ;
+extern r4type _FMADD_S;
+extern r4type _FMSUB_S;
+extern r4type _FNMADD_S;
+extern r4type _FNMSUM_S;
+extern rtype _FADD_S;
+extern rtype _FSUB_S;
+extern rtype _FMUL_S;
+extern rtype _FDIV_S;
+extern rtype _FSQWRT_S;
+extern rtype _FSGNJ_S;
+extern rtype _FSGNJN_S;
+extern rtype _FSGNJX_S;
+extern rtype _FMIN_S;
+extern rtype _FMAX_S;
+extern rtype _FCVT_W_S;
+extern rtype _FCVT_WU_S;
+extern rtype _FMV_X_W;
+extern rtype _FEQ_S;
+extern rtype _FLT_S;
+extern rtype _FLE_S;
+extern rtype _FCLASS_S;
+extern rtype _FCVT_S_W;
+extern rtype _FCVT_S_WU;
+extern rtype _FMV_W_X;
 }
 
 #endif //RISCV_OPCODES_H
