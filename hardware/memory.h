@@ -18,6 +18,7 @@ public:
         memset(mem, 0, bytes);
         size = bytes;
     }
+
     ~memory() {
         delete mem;
     }
@@ -26,7 +27,7 @@ public:
     {
         if(address >= size) {
             char buffer[1024];
-            sprintf(buffer,"Unallowed memory read at 0x%08" PRIx64, address);
+            sprintf(buffer,"Unallowed memory read at 0x%08" PRIx64 "\n", address);
             throw std::out_of_range(buffer);
         }
         return mem[address];

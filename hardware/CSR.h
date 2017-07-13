@@ -33,7 +33,7 @@ public:
     std::string toString(){
         std::stringstream ss;
         for(auto const &entry : csr) {
-            ss << "0x" << std::hex << (uint16_t )entry.first << " " <<entry.second->toString() << std::endl;
+            ss << "0x" << std::hex << (uint16_t )entry.first << " " << entry.second->toString() << std::endl;
         }
         return ss.str();
     }

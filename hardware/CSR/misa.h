@@ -10,7 +10,7 @@ namespace CSR {
     public:
         misa() : csr_register("misa", 0) {};
 
-        uint32_t read() {
+        virtual uint32_t read() {
             // Ignore all previous writes
             value = XLEN32;
 
