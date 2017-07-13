@@ -53,6 +53,10 @@ namespace decode {
     itype _CSRRSI  = {.opcode = 0b1110011, .funct3 = 0b110};
     itype _CSRRCI  = {.opcode = 0b1110011, .funct3 = 0b111};
 
+    itype _MRET = {.opcode = 0b1110011, .funct3 = 0b000, .rd = 0b00000, .rs1 = 0b00000, .imm0_11 = 0b001100000010};
+    itype _SRET = {.opcode = 0b1110011, .funct3 = 0b000, .rd = 0b00000, .rs1 = 0b00000, .imm0_11 = 0b000100000010};
+    itype _URET = {.opcode = 0b1110011, .funct3 = 0b000, .rd = 0b00000, .rs1 = 0b00000, .imm0_11 = 0b000000000010};
+
     // M extension
     rtype _MUL     = {.opcode = 0b0110011, .funct3 = 0b000, .funct7 = 0b0000001};
     rtype _MULH    = {.opcode = 0b0110011, .funct3 = 0b001, .funct7 = 0b0000001};
@@ -118,4 +122,5 @@ namespace decode {
     rtype _FCVT_WU_D = {.opcode = 0b1010011, .funct7 = 0b1100001, .rs2 = 0b00001};
     rtype _FCVT_D_W  = {.opcode = 0b1010011, .funct7 = 0b1101000, .rs2 = 0b00000};
     rtype _FCVT_D_WU = {.opcode = 0b1010011, .funct7 = 0b1101000, .rs2 = 0b00001};
+
 }

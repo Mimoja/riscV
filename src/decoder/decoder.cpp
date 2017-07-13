@@ -238,6 +238,22 @@ namespace decode {
                 }
             }
         }
+        //TODO remove?
+        if (next_opcode == _MRET.opcode) {
+            uint8_t function = next_instruction.I.funct3;
+            if (function == _MRET.funct3) {
+                uint16_t func = next_instruction.I.imm0_11;
+                if (func == _MRET.imm0_11) {
+                    return new instructions::MRET(next_instruction, reg);
+                }
+                if (func == _SRET.imm0_11) {
+                    return new instructions::SRET(next_instruction, reg);
+                }
+                if (func == _URET.imm0_11) {
+                    return new instructions::URET(next_instruction, reg);
+                }
+            }
+        }
         return new instructions::Instruction(next_instruction, reg);
     }
 }

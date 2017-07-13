@@ -2,8 +2,8 @@
 
 #include <elfio/elfio.hpp>
 
-#include "decoder/opcodes.h"
 #include "decoder/decoder.h"
+#include "hardware/interrups.h"
 
 int main(int argc, char** argv) {
 
@@ -70,7 +70,12 @@ int main(int argc, char** argv) {
             instruction->execute(reg, mem);
             // increment PC
             reg->setPC32(reg->getPC32() + instruction->pc_increment());
-        }catch( const std::out_of_range& e ) {
+        }catch (priviledgeReturn pr){
+            printf("MRET!!!!!!!\n");
+            //Todo implement
+            reg->setPC32(simulated_return_address);
+        }
+        catch( const std::out_of_range& e ) {
             printf("Expception: %s\n", e.what());
             if (instruction)
                 printf("Instruction: %s\n",instruction->to_string());
