@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     reg->gp.setReg32Value(1, simulated_return_address);
 
     while(reg->getPC32() != simulated_return_address){
-        char c;
+        /*char c;
         do {
             c = getchar();
         }
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
         if(c == 'r') {
             printf("Register dump:\n%s\n", reg->to_string().c_str());
             continue;
-        }
+        }*/
 
         try {
             instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()), *reg);

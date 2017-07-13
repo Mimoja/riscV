@@ -43,12 +43,22 @@ std::string csr_registers::to_string() {
 /*
  * FP
  */
-void fp_registers::setSinglePrevisionValue(uint8_t num, float value){
+void fp_registers::setSinglePrecisionValue(uint8_t num, float value){
     if(num >= 32) throw std::out_of_range("Unknown register write");
     regs.at(num)->value = value;
 }
 
-float fp_registers::getSinglePrevisionValue(uint8_t num){
+float fp_registers::getSinglePrecisionValue(uint8_t num){
+    if(num >= 32) throw std::out_of_range("Unknown register read");
+    return regs.at(num)->value;
+}
+
+void fp_registers::setDoublePrecisionValue(uint8_t num, double value){
+    if(num >= 32) throw std::out_of_range("Unknown register write");
+    regs.at(num)->value = value;
+}
+
+double fp_registers::getDoublePrecisionValue(uint8_t num){
     if(num >= 32) throw std::out_of_range("Unknown register read");
     return regs.at(num)->value;
 }

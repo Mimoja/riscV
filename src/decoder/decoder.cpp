@@ -218,7 +218,7 @@ namespace decode {
         if (next_opcode == _FADD_S.opcode) {
             uint8_t function = next_instruction.R.funct7;
             if(function == _FADD_S.funct7) {
-                return new instructions::FADD(next_instruction, reg);
+                return new instructions::FADD_S(next_instruction, reg);
             }
             if(function == _FSUB_S.funct7) {
                 return new instructions::FSUB(next_instruction, reg);

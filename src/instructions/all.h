@@ -66,11 +66,11 @@
 
 #include "extension/F/FLW.h"
 #include "extension/F/FSW.h"
-#include "extension/F/FADD.h"
-#include "extension/F/FSUB.h"
-#include "extension/F/FMUL.h"
-#include "extension/F/FDIV.h"
-#include "extension/F/FMAX.h"
-#include "extension/F/FMIN.h"
+#include "extension/F/FADD.S..h"
+#include "extension/F/FSUB.S.h"
+#include "extension/F/FMUL.S.h"
+#include "extension/F/FDIV.S.h"
+#include "extension/F/FMAX.S.h"
+#include "extension/F/FMIN.S.h"
 
 #endif //RISCV_ALL_H

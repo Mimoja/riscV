@@ -284,9 +284,10 @@ public:
         const char* name;
     };
 
-    void setSinglePrevisionValue(uint8_t num, float value);
-    float getSinglePrevisionValue(uint8_t num);
-
+    void setSinglePrecisionValue(uint8_t num, float value);
+    float getSinglePrecisionValue(uint8_t num);
+    void setDoublePrecisionValue(uint8_t num, double value);
+    double getDoublePrecisionValue(uint8_t num);
 
     csr_entry* getFFLAGS(registers* reg);
     csr_entry* getFRM(registers* reg);

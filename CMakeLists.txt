@@ -77,12 +77,12 @@ set(SOURCE_FILES
         src/instructions/extension/F/FLW.h
         src/instructions/extension/F/FSW.h
         src/instructions/extension/F/FMADD.S.h
-        src/instructions/extension/F/FADD.h
-        src/instructions/extension/F/FSUB.h
-        src/instructions/extension/F/FMUL.h
-        src/instructions/extension/F/FDIV.h
-        src/instructions/extension/F/FMIN.h
-        src/instructions/extension/F/FMAX.h
+        src/instructions/extension/F/FADD.S..h
+        src/instructions/extension/F/FSUB.S.h
+        src/instructions/extension/F/FMUL.S.h
+        src/instructions/extension/F/FDIV.S.h
+        src/instructions/extension/F/FMIN.S.h
+        src/instructions/extension/F/FMAX.S.h
         )
 
 add_executable(riscV ${SOURCE_FILES})
