@@ -83,6 +83,6 @@ set(SOURCE_FILES
         src/instructions/extension/F/FDIV.S.h
         src/instructions/extension/F/FMIN.S.h
         src/instructions/extension/F/FMAX.S.h
-        src/instructions/priviledged/MRET.h)
+        src/instructions/priviledged/MRET.h src/hardware/cpu.h)
 
 add_executable(riscV ${SOURCE_FILES})

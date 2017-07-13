@@ -4,6 +4,7 @@
 
 #include "decoder/decoder.h"
 #include "hardware/interrups.h"
+#include "hardware/cpu.h"
 
 int main(int argc, char** argv) {
 
@@ -31,8 +32,9 @@ int main(int argc, char** argv) {
         return 5;
     }
 
-    ELFIO::Elf_Half seg_num = reader.segments.size();
     memory* mem = new memory(UINT32_MAX);
+
+    ELFIO::Elf_Half seg_num = reader.segments.size();
     for ( int i = 0; i < seg_num; ++i ) {
         const ELFIO::segment* pseg = reader.segments[i];
 
@@ -42,53 +44,12 @@ int main(int argc, char** argv) {
         }
     }
 
-    registers* reg = new registers();
-
-    reg->setPC32(reader.get_entry());
-    reg->gp.setReg32Value(2,mem->getSize());
-
-    printf("Entry addr is 0x%08" PRIX64 ", offset: %ld bytes\n", (uint64_t) reader.get_entry(), (long)reader.get_entry());
-    instructions::Instruction* instruction = nullptr;
-
+    uint32_t start_pc = reader.get_entry();
     uint64_t simulated_return_address = 0x500;
-    reg->gp.setReg32Value(1, simulated_return_address);
 
-    while(reg->getPC32() != simulated_return_address){
-        /*char c;
-        do {
-            c = getchar();
-        }
-        while (isspace(c) && !(c == 'n' || c == 'r'));
-        if(c == 'r') {
-            printf("Register dump:\n%s\n", reg->to_string().c_str());
-            continue;
-        }*/
+    cpu c(mem, start_pc, simulated_return_address);
+    printf("Entry addr is 0x%08" PRIX64 ", offset: %ld bytes\n", (uint64_t) reader.get_entry(), (long)reader.get_entry());
 
-        try {
-            instruction = decode::decode_instruction((uint32_t)mem->getWord(reg->getPC32()), *reg);
-            printf("0x%08X: 0x%08" PRIX64 ": %s\n", reg->getPC32(), mem->getWord(reg->getPC32()), instruction->to_string());
-            instruction->execute(reg, mem);
-            // increment PC
-            reg->setPC32(reg->getPC32() + instruction->pc_increment());
-        }catch (priviledgeReturn pr){
-            printf("MRET!!!!!!!\n");
-            //Todo implement
-            reg->setPC32(simulated_return_address);
-        }
-        catch( const std::out_of_range& e ) {
-            printf("Expception: %s\n", e.what());
-            if (instruction)
-                printf("Instruction: %s\n",instruction->to_string());
-            printf("Register dump:\n%s\n", reg->to_string().c_str());
-            return 6;
-        }
-        catch(const char* c){
-            printf("%s \n", c);
-            return 7;
-        }
-        delete instruction;
-    }
-    printf("Return is %u\n", reg->gp.getReg32Value(10));
-    //printf("%s", reg->csr.toString().c_str());
-    return 0;
+    return c.run();
+
 }
