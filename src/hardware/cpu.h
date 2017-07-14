@@ -9,8 +9,9 @@
 #include "memory.h"
 #include "registers.h"
 #include "../instructions/Instruction.h"
-#include "interrups.h"
+#include "traps.h"
 #include "../decoder/decoder.h"
+#include "CSR/mcause.h"
 
 class cpu {
 
@@ -21,6 +22,8 @@ public:
         reg->setPC32(intitalPC);
         reg->gp.setReg32Value(2, mem->getSize());
         reg->gp.setReg32Value(1, returnAddress);
+
+
     }
 
     int run() {
@@ -45,7 +48,28 @@ public:
                 reg->setPC32(reg->getPC32() + instruction->pc_increment());
 
 
-            } catch (priviledgeReturn pr) {
+            } catch (trap t) {
+
+                // TODO implement
+                registers::accesslevel targetLevel = registers::accesslevel_M;
+
+                switch(targetLevel){
+                    case registers::accesslevel_M:
+                        //save pc to mpec
+                        reg->csr.regs_by_name.at("mpec")->value = reg->getPC32();
+                        break;
+                    case registers::accesslevel_S:
+                        break;
+                    case registers::accesslevel_U:
+                        break;
+                    case registers::accesslevel_D:
+                        break;
+                    default:
+                        throw "Unknown accesslevel!";
+                        break;
+                }
+
+
                 printf("MRET!!!!!!!\n");
                 //Todo implement
                 reg->setPC32(returnAddress);
@@ -72,14 +96,6 @@ private:
     memory *mem;
     registers *reg;
     uint32_t returnAddress;
-
-    enum accesslevel{
-        accesslevel_M,
-        accesslevel_S,
-        accesslevel_U,
-        accesslevel_D
-    };
-    accesslevel current_runlevel = accesslevel_M;
 
 };
 #endif //RISCV_CPU_H

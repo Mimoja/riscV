@@ -3,7 +3,7 @@
 #include <elfio/elfio.hpp>
 
 #include "decoder/decoder.h"
-#include "hardware/interrups.h"
+#include "hardware/traps.h"
 #include "hardware/cpu.h"
 
 int main(int argc, char** argv) {

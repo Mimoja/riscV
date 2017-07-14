@@ -408,6 +408,16 @@ public:
     gp_registers gp;
     fp_registers fp;
 
+
+    enum accesslevel{
+        accesslevel_M,
+        accesslevel_S,
+        accesslevel_U,
+        accesslevel_D
+    };
+
+    accesslevel current_runlevel = accesslevel_M;
+
     registers():csr(), gp(), fp(){};
 
     void setPC32(uint64_t pc);

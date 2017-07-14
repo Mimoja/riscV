@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 project(riscV)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 
 include_directories(extern)
 
@@ -20,7 +20,7 @@ set(SOURCE_FILES
         src/hardware/CSR/misa.h
         src/hardware/CSR/msu_status.h
         src/hardware/cpu.h
-        src/hardware/interrups.h
+        src/hardware/traps.h
         src/instructions/all.h
         src/instructions/base_I/ADD.h
         src/instructions/base_I/ADDI.h
@@ -98,6 +98,6 @@ set(SOURCE_FILES
         src/instructions/extension/D/FMIN.D.h
         src/instructions/extension/D/FMUL.D.h
         src/instructions/extension/D/FSUB.D.h
-        src/hardware/CSR/csr_ids.h)
+        src/hardware/CSR/csr_ids.h src/hardware/CSR/mtvec.h src/hardware/CSR/mcause.h src/instructions/base_I/priviledged/WFI.h)
 
 add_executable(riscV ${SOURCE_FILES})
